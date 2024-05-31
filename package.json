@@ -1,9 +1,22 @@
 {
-  "name": "demo-repo",
-  "version": "0.2.0",
+  "name": "rentripplebackend",
+  "version": "1.0.0",
   "description": "A sample package.json",
   "dependencies": {
     "@primer/css": "17.0.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RentRipple/RentRipple-Backend.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/RentRipple/RentRipple-Backend/issues"
+  },
+  "homepage": "https://github.com/RentRipple/RentRipple-Backend#readme"
 }

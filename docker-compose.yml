@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/auth
+    depends_on:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+
+  
+volumes:
+  mongo-data:

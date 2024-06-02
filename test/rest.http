@@ -1,0 +1,15 @@
+### Get req
+GET http://localhost:6000/
+
+
+### 
+POST http://localhost:6000/auth/register
+
+###
+POST http://localhost:6000/auth/login
+
+### 
+POST http://localhost:6000/auth/refresh-token
+
+### 
+POST http://localhost:6000/auth/logout

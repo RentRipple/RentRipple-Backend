@@ -10,14 +10,16 @@ services:
   app:
     build: .
     ports:
-      - "3000:3000"
+      - "6000:6000"
     environment:
-      - MONGO_URL=mongodb://mongo:27017/auth
+      - MONGO_URL=mongodb://mongo:27017
+      - PORT=6000
+      - NODE_ENV=development
+      - DB_NAME=rentripplemongo
     depends_on:
       - mongo
     volumes:
       - .:/usr/src/app
-
   
 volumes:
   mongo-data:

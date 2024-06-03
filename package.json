@@ -4,9 +4,12 @@
   "description": "Backend for RentRipple",
   "dependencies": {
     "@primer/css": "17.0.1",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "http-errors": "^2.0.0",
+    "joi": "^17.13.1",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.2"
   },
@@ -40,8 +43,10 @@
   },
   "homepage": "https://github.com/RentRipple/RentRipple-Backend#readme",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/express": "^4.17.21",
     "@types/http-errors": "^2.0.4",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.13.0",

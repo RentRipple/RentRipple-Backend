@@ -1,15 +1,15 @@
 import * as dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import morgan from "morgan";
-import * as http from "http-errors";
+import { NotFound } from "http-errors";
 import { AuthRoutes } from "./Routes/auth.routes";
 import { connectMongoDb } from "./Helpers/connectMongoDb";
-
 
 dotenv.config();
 connectMongoDb();
 const app: Express = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
 app.get("/", async (req: Request, res: Response) => {
@@ -19,17 +19,19 @@ app.get("/", async (req: Request, res: Response) => {
 app.use("/auth", AuthRoutes);
 
 app.use(async (req: Request, res: Response, next: any) => {
-  next(http.NotFound("This route does not exist!"));
+  next(NotFound("This route does not exist!"));
 });
 
 app.use(async (error: any, req: Request, res: Response, next: any) => {
-  const statusCode = res.statusCode;
+  res.status(error.status || 500);
   res.json({
-    statusCode: statusCode,
+    statusCode: error.status || 500,
     message: error.message,
   });
 });
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
+  console.log(process.env.MONGO_URL);
+  console.log(process.env.DB_NAME);
 });

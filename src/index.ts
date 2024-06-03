@@ -27,7 +27,7 @@ app.use(async (req: Request, res: Response, next: any) => {
   next(NotFound("This route does not exist!"));
 });
 
-app.use(async (error: any, req: Request, res: Response, next: any) => {
+app.use(async (error: any, req: Request, res: Response) => {
   res.status(error.status || 500);
   res.json({
     statusCode: error.status || 500,

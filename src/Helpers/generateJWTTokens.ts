@@ -20,6 +20,7 @@ export const signedAccessToken = async (userId: string) => {
 
 export const signedRefreshToken = async (userId: string) => {
   try {
+    const YEAR = 365 * 24 * 60 * 60;
     const payload = {};
     console.log(process.env.REFRESH_TOKEN_SECRET!);
     const options = {
@@ -28,8 +29,7 @@ export const signedRefreshToken = async (userId: string) => {
       audience: userId,
     };
     const token = JWT.sign(payload, process.env.REFRESH_TOKEN_SECRET!, options);
-    const redisOptions: SetOptions =
-      365 * 24 * 60 * 60 ? { EX: 365 * 24 * 60 * 60 } : {};
+    const redisOptions: SetOptions = YEAR ? { EX: YEAR } : {};
     redisClient.set(userId, token, redisOptions);
     return token;
   } catch (error) {

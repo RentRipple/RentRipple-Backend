@@ -1,4 +1,3 @@
-import exp from "constants";
 import * as Joi from "joi";
 
 export const registerationSchema = Joi.object({

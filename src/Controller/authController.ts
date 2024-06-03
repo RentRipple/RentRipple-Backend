@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { BadRequest, InternalServerError, Unauthorized } from "http-errors";
+import { BadRequest } from "http-errors";
 import {
   signedAccessToken,
   signedRefreshToken,
   verifyRefreshToken,
 } from "../Helpers/generateJWTTokens";
-import JWT from "jsonwebtoken";
 import { User } from "../Models/user.model";
 import { redisClient } from "..";
 import { loginSchema, registerationSchema } from "../Helpers/validationSchema";

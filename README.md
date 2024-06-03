@@ -1,5 +1,7 @@
 # RentRipple Backend
-[![forthebadge made-with-](https://forthebadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+
+
 
 ## Prerequisites
 - Docker
@@ -16,11 +18,19 @@ $ docker compose up
 
 App will run on http://127.0.0.1:6000
  ```
- ##Pytest
+ ## Redis
  ```bash
  To run redis cli
- $ docker exec -it rentripple-backend-redis-1 bash
+ $ docker exec -it rentripple-backend-redis-1 redis-cli
  ```
+
+  ## MongoDB
+ ```bash
+ To run MongoDB cli
+ $ docker exec -it rentripple-backend-mongo-1 mongosh
+ ```
+
+ ## 
 | Parameter | Example 
 | - | - 
 | `myapp`   | `localhost:6000`
@@ -30,7 +40,7 @@ App will run on http://127.0.0.1:6000
 ## API Endpoints
 
 ```bash
-$ Get User Information
+$ Get 
 $ curl http://{environment}//GetUserInfo?uid={UID}
 $ # Example
 $ curl http://{environment}/GetUserInfo?uid=1

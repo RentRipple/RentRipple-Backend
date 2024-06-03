@@ -5,16 +5,12 @@ import { NotFound } from "http-errors";
 import { AuthRoutes } from "./Routes/auth.routes";
 import { connectMongoDb } from "./Helpers/connectMongoDb";
 import { verifyAccessToken } from "./Helpers/generateJWTTokens";
-import { connectRedis} from "./Helpers/connectRedis";
+import { connectRedis } from "./Helpers/connectRedis";
 import { RedisClientType } from "redis";
 
 dotenv.config();
 connectMongoDb();
 export const redisClient: RedisClientType = connectRedis();
-
-
-
-
 
 const app: Express = express();
 app.use(express.json());

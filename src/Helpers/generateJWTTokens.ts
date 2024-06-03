@@ -28,7 +28,8 @@ export const signedRefreshToken = async (userId: string) => {
       audience: userId,
     };
     const token = JWT.sign(payload, process.env.REFRESH_TOKEN_SECRET!, options);
-    const redisOptions: SetOptions =  365 * 24 * 60 * 60 ? { EX: 365 * 24 * 60 * 60} : {};
+    const redisOptions: SetOptions =
+      365 * 24 * 60 * 60 ? { EX: 365 * 24 * 60 * 60 } : {};
     redisClient.set(userId, token, redisOptions);
     return token;
   } catch (error) {
@@ -55,8 +56,7 @@ export const verifyAccessToken = async (
   } catch (error: any) {
     if (error.name === "JsonWebTokenError") {
       next(Unauthorized("Unauthorized"));
-    } 
-    else {
+    } else {
       next(Unauthorized(error.message));
     }
   }
@@ -79,18 +79,15 @@ export const verifyRefreshToken = async (
     }
     const userId = payload.aud;
     const refreshTokenValue = await redisClient.get(userId);
-    if(refreshTokenValue !== refreshToken){
+    if (refreshTokenValue !== refreshToken) {
       throw Unauthorized("Unauthorized");
     }
 
-  
-    
     return userId;
   } catch (error: any) {
     if (error.name === "JsonWebTokenError") {
       next(Unauthorized("Unauthorized"));
-    }
-    else {
+    } else {
       next(Unauthorized(error.message));
     }
   }

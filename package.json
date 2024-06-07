@@ -1,9 +1,67 @@
 {
-  "name": "demo-repo",
-  "version": "0.2.0",
-  "description": "A sample package.json",
+  "name": "rentripplebackend",
+  "version": "1.0.0",
+  "description": "Backend for RentRipple",
   "dependencies": {
-    "@primer/css": "17.0.1"
+    "@primer/css": "17.0.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "eslist": "^1.0.0-beta.1",
+    "express": "^4.19.2",
+    "http-errors": "^2.0.0",
+    "joi": "^17.13.1",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.2",
+    "redis": "^4.6.14"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "main": "dist/index.js",
+  "scripts": {
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
+    "lint": "eslint . --ext .ts",
+    "remove": "rm -rf dist",
+    "build": "tsc",
+    "start": " npm run format && npm run remove && npm run build && node dist/index.js",
+    "dev": "nodemon src/index.ts"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx,json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RentRipple/RentRipple-Backend.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/RentRipple/RentRipple-Backend/issues"
+  },
+  "homepage": "https://github.com/RentRipple/RentRipple-Backend#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.4.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^4.17.21",
+    "@types/http-errors": "^2.0.4",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/mongoose": "^5.11.97",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.13.0",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.12.0",
+    "eslint": "^8.57.0",
+    "globals": "^15.3.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.5",
+    "prettier": "^3.3.0",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.12.0"
+  }
 }

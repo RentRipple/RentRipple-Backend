@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+  app:
+    build: .
+    ports:
+      - "6000:6000"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - MONGO_URL=mongodb://mongo:27017
+      - PORT=6000
+      - NODE_ENV=development
+      - DB_NAME=rentripplemongo
+    depends_on:
+      - mongo
+    volumes:
+      - .:/usr/src/app
+  
+volumes:
+  mongo-data:

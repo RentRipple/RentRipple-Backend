@@ -1,0 +1,35 @@
+### Get req
+GET http://localhost:6000/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc0Mjc4NTAsImV4cCI6MTcxNzQyNzg5MCwiYXVkIjoiNjY1ZGRjZWY0NjRhMDZkNjE0NTBkYWEwIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.fCXQRZNZdjae_rcTiXf6emHT-lDmLfNGIxkRPQzA0eo
+
+### x
+POST http://localhost:6000/auth/register
+Content-Type: application/json
+
+{
+    "email": "yash1@test.com",
+    "password": "12345678",
+    "userName": "test"
+}
+###
+POST http://localhost:6000/auth/login
+Content-Type: application/json
+
+{
+    "email": "yash@test.com",
+    "password": "12345678"
+}
+
+### 
+POST http://localhost:6000/auth/refresh-token
+Content-Type: application/json
+
+{
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc0Mjc3NjQsImV4cCI6MTc0ODk4NTM2NCwiYXVkIjoiNjY1ZGRjZWY0NjRhMDZkNjE0NTBkYWEwIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.LRPi8SZX3xoLFHN41Ll-r_HIFz3bkuB2utJk2Or7Fw4"
+}
+###
+DELETE  http://localhost:6000/auth/logout
+Content-Type: application/json
+
+{  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc0MjY3ODksImV4cCI6MTcxNzQyNjgxOSwiYXVkIjoiNjY1ZGQ0OTFiYWVjYzRjYTZmMzAzOThhIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.U6ugW-W70pFkppDRiahtQid1O6a0l3hmuG9jNSwziPo"
+}

@@ -16,8 +16,7 @@ export const sendResetEmail = async (email: string, resetToken: string) => {
     from: 'your-email@example.com', // Sender address
     to: email, // List of receivers
     subject: 'Password Reset Request', // Subject line
-    text: `You requested a password reset. Please click on the link to reset your password: $(resetToken)` // Plain text body
-    //text: `You requested a password reset. Please click on the link to reset your password: ${resetUrl}`,
+    text: `You requested a password reset. Please click on the link to reset your password: $(resetToken)`,
   };
 
   await transporter.sendMail(mailOptions);

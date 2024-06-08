@@ -6,9 +6,7 @@ export const connectRedis = (): RedisClientType => {
       url: `redis://${process.env.REDIS_HOST || "localhost"}:${process.env.REDIS_PORT ? parseInt(process.env.REDIS_PORT) : 6379}`,
     } as RedisClientOptions);
 
-    client.on("connect", () => {
-      console.log("Connected to Redis");
-    });
+    client.on("connect", () => {});
 
     client.on("end", () => {
       console.log("Disconnected from Redis");

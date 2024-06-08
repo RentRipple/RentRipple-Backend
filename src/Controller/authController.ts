@@ -4,10 +4,13 @@ import {
   signedAccessToken,
   signedRefreshToken,
   verifyRefreshToken,
+  generateResetToken, 
+  verifyResetToken
 } from "../Helpers/generateJWTTokens";
-import { User } from "../Models/user.model";
+import { User } from "../Models/User.model";
 import { redisClient } from "..";
 import { loginSchema, registerationSchema } from "../Helpers/validationSchema";
+import bcrypt from "bcryptjs";
 
 export const registerUser = async (
   req: Request,
@@ -109,6 +112,50 @@ export const logoutUser = async (
     await redisClient.del(userId);
 
     res.sendStatus(204);
+  } catch (error: any) {
+    next(error);
+  }
+};
+
+export const forgotPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw BadRequest("User not found");
+    }
+    const resetToken = await generateResetToken(user.id);
+    res.json({ resetToken });
+  } catch (error: any) {
+    next(error);
+  }
+};
+
+export const resetPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { resetToken, newPassword } = req.body;
+    const userId = await verifyResetToken(resetToken);
+    const user = await User.findById(userId);
+    if (!user) {
+      throw BadRequest("User not found");
+    }
+    const isMatch = await user.checkPassword(newPassword);
+    if (!isMatch) {
+      throw BadRequest("Invalid email or password");
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    user.password = hashedPassword;
+    await user.save();
+    res.json({ message: "Password reset successfully" });
   } catch (error: any) {
     next(error);
   }

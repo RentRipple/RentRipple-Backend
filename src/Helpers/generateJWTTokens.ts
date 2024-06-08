@@ -3,6 +3,9 @@ import { BadRequest, InternalServerError, Unauthorized } from "http-errors";
 import { Request, Response, NextFunction } from "express";
 import { redisClient } from "..";
 import { SetOptions } from "redis";
+//import { User } from "../Models/user.model";
+
+
 export const signedAccessToken = async (userId: string) => {
   try {
     const payload = {};
@@ -90,5 +93,23 @@ export const verifyRefreshToken = async (
     } else {
       next(Unauthorized(error.message));
     }
+  }
+};
+
+export const generateResetToken = async (userId: string): Promise<string> => {
+  const payload = { userId };
+  const resetToken = JWT.sign(payload, process.env.RESET_TOKEN_SECRET!, { expiresIn: "1h" });
+  return resetToken;
+};
+
+export const verifyResetToken = async (resetToken: string): Promise<string> => {
+  try {
+    const decoded = JWT.verify(resetToken, process.env.RESET_TOKEN_SECRET!);
+    if (!decoded || typeof decoded !== "object" || !("userId" in decoded)) {
+      throw new Error("Invalid token");
+    }
+    return decoded.userId;
+  } catch (error) {
+    throw new Error("Invalid or expired token");
   }
 };

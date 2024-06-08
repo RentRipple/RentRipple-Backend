@@ -9,4 +9,7 @@ AuthRoutes.post("/login", authController.loginUser);
 
 AuthRoutes.post("/refresh-token", authController.refreshToken);
 
+AuthRoutes.post("/forgot-password", authController.forgotPassword);
+
 AuthRoutes.delete("/logout", authController.logoutUser);
+

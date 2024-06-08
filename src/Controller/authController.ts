@@ -8,9 +8,14 @@ import {
   verifyResetToken
 } from "../Helpers/generateJWTTokens";
 import { User } from "../Models/User.model";
-import { redisClient } from "..";
 import { loginSchema, registerationSchema } from "../Helpers/validationSchema";
+import { connectRedis } from "../Helpers/connectRedis";
+import { RedisClientType } from "redis";
+import { connectMongoDb } from "../Helpers/connectMongoDb";
 import bcrypt from "bcryptjs";
+import { sendResetEmail } from "../Helpers/sendEmail";
+
+connectMongoDb();
 
 export const registerUser = async (
   req: Request,
@@ -104,6 +109,7 @@ export const logoutUser = async (
   next: NextFunction,
 ) => {
   try {
+    const redisClient: RedisClientType = connectRedis();
     const { refreshToken } = req.body;
     if (!refreshToken) {
       throw BadRequest("Invalid request");
@@ -129,7 +135,8 @@ export const forgotPassword = async (
       throw BadRequest("User not found");
     }
     const resetToken = await generateResetToken(user.id);
-    res.json({ resetToken });
+    await sendResetEmail(email, resetToken); // Send the reset token via email
+    res.json({ message: "Reset password email sent" });
   } catch (error: any) {
     next(error);
   }

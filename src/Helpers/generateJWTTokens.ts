@@ -1,11 +1,8 @@
 import * as JWT from "jsonwebtoken";
 import { BadRequest, InternalServerError, Unauthorized } from "http-errors";
 import { Request, Response, NextFunction } from "express";
-import { redisClient } from "..";
-import { SetOptions } from "redis";
-//import { User } from "../Models/user.model";
-
-
+import { connectRedis } from "./connectRedis";
+import { RedisClientType, SetOptions } from "redis";
 export const signedAccessToken = async (userId: string) => {
   try {
     const payload = {};
@@ -33,6 +30,7 @@ export const signedRefreshToken = async (userId: string) => {
     };
     const token = JWT.sign(payload, process.env.REFRESH_TOKEN_SECRET!, options);
     const redisOptions: SetOptions = YEAR ? { EX: YEAR } : {};
+    const redisClient: RedisClientType = connectRedis();
     redisClient.set(userId, token, redisOptions);
     return token;
   } catch (error) {
@@ -81,6 +79,7 @@ export const verifyRefreshToken = async (
       throw Unauthorized("Unauthorized");
     }
     const userId = payload.aud;
+    const redisClient: RedisClientType = connectRedis();
     const refreshTokenValue = await redisClient.get(userId);
     if (refreshTokenValue !== refreshToken) {
       throw Unauthorized("Unauthorized");

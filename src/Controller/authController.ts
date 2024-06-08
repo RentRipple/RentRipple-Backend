@@ -5,9 +5,13 @@ import {
   signedRefreshToken,
   verifyRefreshToken,
 } from "../Helpers/generateJWTTokens";
-import { User } from "../Models/user.model";
-import { redisClient } from "..";
+import { User } from "../Models/User.model";
 import { loginSchema, registerationSchema } from "../Helpers/validationSchema";
+import { connectRedis } from "../Helpers/connectRedis";
+import { RedisClientType } from "redis";
+import { connectMongoDb } from "../Helpers/connectMongoDb";
+
+connectMongoDb();
 
 export const registerUser = async (
   req: Request,
@@ -101,6 +105,7 @@ export const logoutUser = async (
   next: NextFunction,
 ) => {
   try {
+    const redisClient: RedisClientType = connectRedis();
     const { refreshToken } = req.body;
     if (!refreshToken) {
       throw BadRequest("Invalid request");

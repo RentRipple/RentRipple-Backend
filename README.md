@@ -14,7 +14,7 @@
 $ git clone https://github.com/RentRipple/RentRipple-Backend.git & cd RentRipple-Backend/
 
 # Run application
-$ docker compose up
+$ docker-compose up
 
 App will run on http://127.0.0.1:6000
  ```

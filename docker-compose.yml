@@ -14,12 +14,12 @@ services:
   app:
     build: .
     ports:
-      - "6000:6000"
+      - "8000:8000"
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - MONGO_URL=mongodb://mongo:27017
-      - PORT=6000
+      - PORT=8000
       - NODE_ENV=development
       - DB_NAME=rentripplemongo
     depends_on:

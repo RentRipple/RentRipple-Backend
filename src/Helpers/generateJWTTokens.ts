@@ -1,5 +1,5 @@
 import * as JWT from "jsonwebtoken";
-import { BadRequest, InternalServerError, Unauthorized } from "http-errors";
+import { InternalServerError, Unauthorized } from "http-errors";
 import { Request, Response, NextFunction } from "express";
 import { connectRedis } from "./connectRedis";
 import { RedisClientType, SetOptions } from "redis";
@@ -68,7 +68,10 @@ export const verifyRefreshToken = async (refreshToken: string) => {
     if (!refreshToken) {
       throw new Unauthorized("Unauthorized");
     }
-    const payload: any = JWT.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET!);
+    const payload: any = JWT.verify(
+      refreshToken,
+      process.env.REFRESH_TOKEN_SECRET!,
+    );
     if (!payload) {
       throw new Unauthorized("Unauthorized");
     }

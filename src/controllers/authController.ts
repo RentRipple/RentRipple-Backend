@@ -4,12 +4,12 @@ import {
   signedAccessToken,
   signedRefreshToken,
   verifyRefreshToken,
-} from "../Helpers/generateJWTTokens";
-import { User } from "../Models/User.model";
-import { loginSchema, registerationSchema } from "../Helpers/validationSchema";
-import { connectRedis } from "../Helpers/connectRedis";
+} from "../helpers/generateJWTTokens";
+import { User } from "../models/User.model";
+import { loginSchema, registerationSchema } from "../helpers/validationSchema";
+import { connectRedis } from "../helpers/connectRedis";
 import { RedisClientType } from "redis";
-import { connectMongoDb } from "../Helpers/connectMongoDb";
+import { connectMongoDb } from "../helpers/connectMongoDb";
 
 connectMongoDb();
 
@@ -111,7 +111,7 @@ export const logoutUser = async (
       throw BadRequest("Invalid request");
     }
     const userId = await verifyRefreshToken(refreshToken);
-    if(!userId){
+    if (!userId) {
       throw BadRequest("Invalid request");
     }
     await redisClient.del(userId);

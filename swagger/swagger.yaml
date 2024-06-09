@@ -4,7 +4,7 @@ info:
   description: "API endpoints for user authentication"
   version: "1.0.0"
 servers:
-  - url: "http://localhost:8000"
+  - url: "http://localhost:8000/api"
 components:
   securitySchemes:
     bearerAuth:

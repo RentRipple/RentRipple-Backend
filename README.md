@@ -8,7 +8,22 @@
 - Git
 
 
-## Setup 
+## Setup (Local)
+```bash
+# Get repository
+$ git clone https://github.com/RentRipple/RentRipple-Backend.git & cd RentRipple-Backend/
+
+# Run application
+$ npm install
+
+$ run redis and mongoDB first
+
+$ npm run start
+
+App will run on http://127.0.0.1:6000
+ ```
+
+## Setup (prod)
 ```bash
 # Get repository
 $ git clone https://github.com/RentRipple/RentRipple-Backend.git & cd RentRipple-Backend/

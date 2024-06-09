@@ -4,12 +4,12 @@ import {
   signedAccessToken,
   signedRefreshToken,
   verifyRefreshToken,
-} from "../helpers/generateJWTTokens";
-import { User } from "../models/User.model";
-import { loginSchema, registerationSchema } from "../helpers/validationSchema";
-import { connectRedis } from "../helpers/connectRedis";
+} from "../Helpers/generateJWTTokens";
+import { User } from "../Models/User.model";
+import { loginSchema, registerationSchema } from "../Helpers/validationSchema";
+import { connectRedis } from "../Helpers/connectRedis";
 import { RedisClientType } from "redis";
-import { connectMongoDb } from "../helpers/connectMongoDb";
+import { connectMongoDb } from "../Helpers/connectMongoDb";
 
 connectMongoDb();
 

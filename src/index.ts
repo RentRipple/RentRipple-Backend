@@ -12,11 +12,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
-app.get("/", verifyAccessToken, async (req: Request, res: Response) => {
+app.get("/api", async (req: Request, res: Response) => {
   res.json({ message: "Welcome to the API" });
 });
 
-app.use("/auth", AuthRoutes);
+app.use("/api/auth", AuthRoutes);
 
 // Middleware to handle 404 errors
 app.use((req: Request, res: Response, next: NextFunction) => {

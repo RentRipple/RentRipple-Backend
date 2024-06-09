@@ -1,8 +1,10 @@
 import * as JWT from "jsonwebtoken";
 import { InternalServerError, Unauthorized } from "http-errors";
 import { Request, Response, NextFunction } from "express";
-import { connectRedis } from "./connectRedis";
 import { RedisClientType, SetOptions } from "redis";
+import { connectRedis } from "./connectRedis"; 
+
+
 export const signedAccessToken = async (userId: string) => {
   try {
     const payload = {};

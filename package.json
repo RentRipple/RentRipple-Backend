@@ -22,8 +22,9 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
     "lint": "eslint . --ext .ts",
     "remove": "rm -rf dist",
+    "prebuild": "npm run format && npm run lint && npm run remove",
     "build": "tsc",
-    "start": " npm run format && npm run remove && npm run build && node dist/index.js",
+    "start": "npm run build && node dist/index.js",
     "dev": "nodemon src/index.ts"
   },
   "husky": {

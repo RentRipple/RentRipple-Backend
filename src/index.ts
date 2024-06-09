@@ -1,12 +1,11 @@
 import * as dotenv from "dotenv";
-import express, { Express, Request, Response } from "express";
+import express, { Express, Request, Response, NextFunction } from "express";
 import morgan from "morgan";
-import { NotFound } from "http-errors";
+import createError from "http-errors";
 import { AuthRoutes } from "./Routes/auth.routes";
 import { verifyAccessToken } from "./Helpers/generateJWTTokens";
 
 dotenv.config();
-
 
 const app: Express = express();
 app.use(express.json());
@@ -19,11 +18,13 @@ app.get("/", verifyAccessToken, async (req: Request, res: Response) => {
 
 app.use("/auth", AuthRoutes);
 
-app.use(async (req: Request, res: Response, next: any) => {
-  next(NotFound("This route does not exist!"));
+// Middleware to handle 404 errors
+app.use((req: Request, res: Response, next: NextFunction) => {
+  next(createError(404, "This route does not exist!"));
 });
 
-app.use(async (error: any, req: Request, res: Response) => {
+// Error handling middleware
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   res.status(error.status || 500);
   res.json({
     statusCode: error.status || 500,

@@ -89,7 +89,7 @@ export const refreshToken = async (
     if (!refreshToken) {
       throw BadRequest();
     }
-    const userId: string = await verifyRefreshToken(refreshToken, next);
+    const userId: string = await verifyRefreshToken(refreshToken);
     const accessToken = await signedAccessToken(userId);
     const newRefreshToken = await signedRefreshToken(userId);
 
@@ -110,9 +110,11 @@ export const logoutUser = async (
     if (!refreshToken) {
       throw BadRequest("Invalid request");
     }
-    const userId = await verifyRefreshToken(refreshToken, next);
+    const userId = await verifyRefreshToken(refreshToken);
+    if(!userId){
+      throw BadRequest("Invalid request");
+    }
     await redisClient.del(userId);
-
     res.sendStatus(204);
   } catch (error: any) {
     next(error);

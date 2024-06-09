@@ -16,3 +16,10 @@ export const loginSchema = Joi.object({
     .pattern(new RegExp("^[a-zA-Z0-9]{8,}$"))
     .required(),
 });
+
+export const propertySchema = Joi.object({
+  shortDescription: Joi.string().required(),
+  price: Joi.string().required(),
+  imageUrl: Joi.string().required(),
+  location: Joi.string().required(),
+});

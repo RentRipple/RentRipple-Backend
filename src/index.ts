@@ -3,10 +3,10 @@ import express, { Express, Request, Response } from "express";
 import morgan from "morgan";
 import { NotFound } from "http-errors";
 import { AuthRoutes } from "./Routes/auth.routes";
+import { PropertyRoutes } from "./Routes/property.routes";
 import { verifyAccessToken } from "./Helpers/generateJWTTokens";
 
 dotenv.config();
-
 
 const app: Express = express();
 app.use(express.json());
@@ -18,6 +18,7 @@ app.get("/", verifyAccessToken, async (req: Request, res: Response) => {
 });
 
 app.use("/auth", AuthRoutes);
+app.use("/property", PropertyRoutes);
 
 app.use(async (req: Request, res: Response, next: any) => {
   next(NotFound("This route does not exist!"));

@@ -97,7 +97,9 @@ export const verifyRefreshToken = async (
 
 export const generateResetToken = async (userId: string): Promise<string> => {
   const payload = { userId };
-  const resetToken = JWT.sign(payload, process.env.RESET_TOKEN_SECRET!, { expiresIn: "1h" });
+  const resetToken = JWT.sign(payload, process.env.RESET_TOKEN_SECRET!, {
+    expiresIn: "1h",
+  });
   return resetToken;
 };
 

@@ -4,16 +4,23 @@ import {
   signedAccessToken,
   signedRefreshToken,
   verifyRefreshToken,
-  generateResetToken, 
-  verifyResetToken
+  generateResetToken,
+  verifyResetToken,
 } from "../Helpers/generateJWTTokens";
 import { User } from "../Models/User.model";
-import { loginSchema, registerationSchema } from "../Helpers/validationSchema";
+import {
+  loginSchema,
+  registerationSchema,
+  propertySchema,
+} from "../Helpers/validationSchema";
 import { connectRedis } from "../Helpers/connectRedis";
 import { RedisClientType } from "redis";
 import { connectMongoDb } from "../Helpers/connectMongoDb";
 import bcrypt from "bcryptjs";
 import { sendResetEmail } from "../Helpers/sendEmail";
+import { Property } from "../Models/Property.model";
+// import { propertySchema } from "../Helpers/validationSchema";
+import { ObjectSchema } from "joi";
 
 connectMongoDb();
 

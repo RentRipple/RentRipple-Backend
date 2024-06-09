@@ -33,3 +33,14 @@ Content-Type: application/json
 
 {  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc0MjY3ODksImV4cCI6MTcxNzQyNjgxOSwiYXVkIjoiNjY1ZGQ0OTFiYWVjYzRjYTZmMzAzOThhIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.U6ugW-W70pFkppDRiahtQid1O6a0l3hmuG9jNSwziPo"
 }
+
+###
+POST http://localhost:6000/property/add-property
+Content-Type: application/json
+
+{
+    "shortDescription": "1bhk",
+    "price": "123$",
+    "imageUrl": "https://www.google.com",
+    "location": "Windsor"
+}

@@ -25,11 +25,11 @@ POST http://localhost:6000/auth/refresh-token
 Content-Type: application/json
 
 {
-"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc0Mjc3NjQsImV4cCI6MTc0ODk4NTM2NCwiYXVkIjoiNjY1ZGRjZWY0NjRhMDZkNjE0NTBkYWEwIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.LRPi8SZX3xoLFHN41Ll-r_HIFz3bkuB2utJk2Or7Fw4"
+"refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc4ODAwNTIsImV4cCI6MTc0OTQzNzY1MiwiYXVkIjoiNjY2MzU1MTY3ZWU2ZDk5OTZjMDMzN2Q2IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.UUmflSMsYa9ClAQZyfYHQoaaPnHc18jt-pb3WuVifFE"
 }
 ###
 DELETE  http://localhost:6000/auth/logout
 Content-Type: application/json
 
-{  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc0MjY3ODksImV4cCI6MTcxNzQyNjgxOSwiYXVkIjoiNjY1ZGQ0OTFiYWVjYzRjYTZmMzAzOThhIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.U6ugW-W70pFkppDRiahtQid1O6a0l3hmuG9jNSwziPo"
+{  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc4ODAwNTIsImV4cCI6MTc0OTQzNzY1MiwiYXVkIjoiNjY2MzU1MTY3ZWU2ZDk5OTZjMDMzN2Q2IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.UUmflSMsYa9ClAQZyfYHQoaaPnHc18jt-pb3WuVifFE"
 }

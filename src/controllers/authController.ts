@@ -10,8 +10,10 @@ import { loginSchema, registerationSchema } from "../Helpers/validationSchema";
 import { connectRedis } from "../Helpers/connectRedis";
 import { RedisClientType } from "redis";
 import { connectMongoDb } from "../Helpers/connectMongoDb";
+import { Get, Post, Route } from "tsoa";
 
 connectMongoDb();
+
 
 export const registerUser = async (
   req: Request,
@@ -19,6 +21,7 @@ export const registerUser = async (
   next: NextFunction,
 ) => {
   try {
+    
     const { userName, email, password } = req.body;
     const result = registerationSchema.validate({
       userName,

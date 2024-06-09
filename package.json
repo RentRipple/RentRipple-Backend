@@ -5,6 +5,7 @@
   "dependencies": {
     "@primer/css": "17.0.1",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "eslist": "^1.0.0-beta.1",
     "express": "^4.19.2",
@@ -16,7 +17,7 @@
     "redis": "^4.6.14",
     "swagger-ui-express": "^5.0.1",
     "ts-node": "^10.9.2",
-    "tsoa": "^6.3.0"
+    "yamljs": "^0.3.0"
   },
   "license": "MIT",
   "main": "dist/index.js",
@@ -24,12 +25,10 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
     "lint": "eslint . --ext .ts",
     "remove": "rm -rf dist",
-    "predev": "npm run swagger",
-    "prebuild": "npm run swagger",
+    "prebuild": "npm run format && npm run lint && npm run remove",
     "build": "tsc",
-    "swagger": "tsoa spec",
-    "start": " npm run format && npm run remove && npm run build && node dist/index.js",
-    "dev": "concurrently \"nodemon\" \"nodemon -x tsoa spec\""
+    "start": "npm run build && node dist/index.js",
+    "dev": "nodemon src/index.ts"
   },
   "husky": {
     "hooks": {
@@ -54,6 +53,7 @@
   "devDependencies": {
     "@eslint/js": "^9.4.0",
     "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/http-errors": "^2.0.4",
     "@types/jsonwebtoken": "^9.0.6",
@@ -61,6 +61,7 @@
     "@types/morgan": "^1.9.9",
     "@types/node": "^20.13.0",
     "@types/swagger-ui-express": "^4.1.6",
+    "@types/yamljs": "^0.2.34",
     "@typescript-eslint/eslint-plugin": "^7.12.0",
     "@typescript-eslint/parser": "^7.12.0",
     "concurrently": "^8.2.2",

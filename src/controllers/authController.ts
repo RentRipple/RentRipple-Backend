@@ -4,16 +4,14 @@ import {
   signedAccessToken,
   signedRefreshToken,
   verifyRefreshToken,
-} from "../Helpers/generateJWTTokens";
-import { User } from "../Models/User.model";
-import { loginSchema, registerationSchema } from "../Helpers/validationSchema";
-import { connectRedis } from "../Helpers/connectRedis";
+} from "../helpers/generateJWTTokens";
+import { User } from "../models/User.model";
+import { loginSchema, registerationSchema } from "../helpers/validationSchema";
+import { connectRedis } from "../helpers/connectRedis";
 import { RedisClientType } from "redis";
-import { connectMongoDb } from "../Helpers/connectMongoDb";
-import { Get, Post, Route } from "tsoa";
+import { connectMongoDb } from "../helpers/connectMongoDb";
 
 connectMongoDb();
-
 
 export const registerUser = async (
   req: Request,
@@ -21,7 +19,6 @@ export const registerUser = async (
   next: NextFunction,
 ) => {
   try {
-    
     const { userName, email, password } = req.body;
     const result = registerationSchema.validate({
       userName,
@@ -92,7 +89,7 @@ export const refreshToken = async (
     if (!refreshToken) {
       throw BadRequest();
     }
-    const userId: string = await verifyRefreshToken(refreshToken, next);
+    const userId: string = await verifyRefreshToken(refreshToken);
     const accessToken = await signedAccessToken(userId);
     const newRefreshToken = await signedRefreshToken(userId);
 
@@ -113,9 +110,11 @@ export const logoutUser = async (
     if (!refreshToken) {
       throw BadRequest("Invalid request");
     }
-    const userId = await verifyRefreshToken(refreshToken, next);
+    const userId = await verifyRefreshToken(refreshToken);
+    if (!userId) {
+      throw BadRequest("Invalid request");
+    }
     await redisClient.del(userId);
-
     res.sendStatus(204);
   } catch (error: any) {
     next(error);

@@ -17,4 +17,4 @@ COPY . .
 CMD ["npm","run","start"]
 
 # Expose the port the app runs on
-EXPOSE 6000
+EXPOSE 8000

@@ -20,12 +20,16 @@ export const registerUser = async (
 ) => {
   try {
     const { userName, email, password, securityQuestions } = req.body;
+    // Log the request body for debugging
+    console.log("Request Body:", req.body);
     const result = registerationSchema.validate({
       userName,
       email,
       password,
       securityQuestions,
     });
+    // Log the validation result for debugging
+    console.log("Validation Result:", result);
     if (result.error) {
       throw BadRequest(result.error.message);
     }
@@ -125,7 +129,7 @@ export const logoutUser = async (
 export const verifySecurityAnswers = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { email, securityQuestions } = req.body;
@@ -147,4 +151,3 @@ export const verifySecurityAnswers = async (
     next(error);
   }
 };
-

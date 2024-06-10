@@ -21,12 +21,12 @@ const predefinedQuestions = [
   "In what city or town did your mother and father meet?",
   "What is your favorite team?",
   "What is your favorite movie?",
-  "What was the name of your first pet?"
+  "What was the name of your first pet?",
 ];
 
 const SecurityQuestionSchema: Schema = new Schema({
   question: { type: String, required: true, enum: predefinedQuestions },
-  answer: { type: String, required: true }
+  answer: { type: String, required: true },
 });
 
 const UserSchema: Schema<IUser> = new Schema({
@@ -48,8 +48,8 @@ const UserSchema: Schema<IUser> = new Schema({
     type: [SecurityQuestionSchema],
     validate: {
       validator: (arr: ISecurityQuestion[]) => arr.length === 3,
-      message: '{PATH} must have exactly 3 elements'
-    }
+      message: "{PATH} must have exactly 3 elements",
+    },
   },
 });
 
@@ -60,7 +60,7 @@ UserSchema.pre<IUser>("save", async function (next) {
     }
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(this.password, salt);
-    this.password = hash;  
+    this.password = hash;
     next();
   } catch (error: any) {
     next(error);
@@ -73,8 +73,13 @@ UserSchema.methods.checkPassword = async function (
   return await bcrypt.compare(password, this.password);
 };
 
-UserSchema.methods.checkSecurityAnswer = async function (question: string, answer: string) {
-  const sq = this.securityQuestions.find((q: ISecurityQuestion) => q.question === question);
+UserSchema.methods.checkSecurityAnswer = async function (
+  question: string,
+  answer: string,
+) {
+  const sq = this.securityQuestions.find(
+    (q: ISecurityQuestion) => q.question === question,
+  );
   if (!sq) return false;
   return sq.answer === answer;
 };

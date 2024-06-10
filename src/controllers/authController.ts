@@ -1,15 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import { BadRequest } from "http-errors";
+import { BadRequest, Unauthorized } from "http-errors";
 import {
   signedAccessToken,
   signedRefreshToken,
   verifyRefreshToken,
-} from "../helpers/generateJWTTokens";
-import { User } from "../models/User.model";
-import { loginSchema, registerationSchema } from "../helpers/validationSchema";
-import { connectRedis } from "../helpers/connectRedis";
+} from "../Helpers/generateJWTTokens";
+import { User } from "../Models/User.model";
+import { loginSchema, registerationSchema } from "../Helpers/validationSchema";
+import { connectRedis } from "../Helpers/connectRedis";
 import { RedisClientType } from "redis";
-import { connectMongoDb } from "../helpers/connectMongoDb";
+import { connectMongoDb } from "../Helpers/connectMongoDb";
 
 connectMongoDb();
 
@@ -19,11 +19,12 @@ export const registerUser = async (
   next: NextFunction,
 ) => {
   try {
-    const { userName, email, password } = req.body;
+    const { userName, email, password, securityQuestions } = req.body;
     const result = registerationSchema.validate({
       userName,
       email,
       password,
+      securityQuestions,
     });
     if (result.error) {
       throw BadRequest(result.error.message);
@@ -120,3 +121,30 @@ export const logoutUser = async (
     next(error);
   }
 };
+
+export const verifySecurityAnswers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { email, securityQuestions } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Unauthorized("Invalid email");
+    }
+
+    for (const sq of securityQuestions) {
+      const isMatch = await user.checkSecurityAnswer(sq.question, sq.answer);
+      if (!isMatch) {
+        throw new Unauthorized("Security answer is incorrect");
+      }
+    }
+
+    res.sendStatus(200);
+  } catch (error: any) {
+    next(error);
+  }
+};
+

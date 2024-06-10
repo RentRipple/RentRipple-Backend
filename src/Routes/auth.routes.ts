@@ -20,4 +20,7 @@ AuthRoutes.post("/login", authController.loginUser);
 
 AuthRoutes.post("/refresh-token", authController.refreshToken);
 
+AuthRoutes.post('/verify-security-answers', authController.verifySecurityAnswers);
+
 AuthRoutes.delete("/logout", authController.logoutUser);
+

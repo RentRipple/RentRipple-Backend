@@ -1,8 +1,9 @@
 import * as JWT from "jsonwebtoken";
-import { BadRequest, InternalServerError, Unauthorized } from "http-errors";
+import { InternalServerError, Unauthorized } from "http-errors";
 import { Request, Response, NextFunction } from "express";
-import { connectRedis } from "./connectRedis";
 import { RedisClientType, SetOptions } from "redis";
+import { connectRedis } from "./connectRedis";
+
 export const signedAccessToken = async (userId: string) => {
   try {
     const payload = {};
@@ -51,46 +52,42 @@ export const verifyAccessToken = async (
     const token = authHeader.split(" ")[1];
     const payload = JWT.verify(token, process.env.ACCESS_TOKEN_SECRET!);
     if (!payload) {
-      throw Unauthorized("Unauthorized");
+      throw new Unauthorized("Unauthorized");
     }
     next();
   } catch (error: any) {
     if (error.name === "JsonWebTokenError") {
-      next(Unauthorized("Unauthorized"));
+      throw new Unauthorized("Unauthorized");
     } else {
-      next(Unauthorized(error.message));
+      throw new Unauthorized(error.message);
     }
   }
 };
 
-export const verifyRefreshToken = async (
-  refreshToken: string,
-  next: NextFunction,
-) => {
+export const verifyRefreshToken = async (refreshToken: string) => {
   try {
     if (!refreshToken) {
-      throw BadRequest("Unauthorized");
+      throw new Unauthorized("Unauthorized");
     }
     const payload: any = JWT.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET!,
     );
     if (!payload) {
-      throw Unauthorized("Unauthorized");
+      throw new Unauthorized("Unauthorized");
     }
     const userId = payload.aud;
     const redisClient: RedisClientType = connectRedis();
     const refreshTokenValue = await redisClient.get(userId);
     if (refreshTokenValue !== refreshToken) {
-      throw Unauthorized("Unauthorized");
+      throw new Unauthorized("Unauthorized");
     }
-
     return userId;
   } catch (error: any) {
     if (error.name === "JsonWebTokenError") {
-      next(Unauthorized("Unauthorized"));
+      throw new Unauthorized("Unauthorized");
     } else {
-      next(Unauthorized(error.message));
+      throw new Unauthorized(error.message);
     }
   }
 };

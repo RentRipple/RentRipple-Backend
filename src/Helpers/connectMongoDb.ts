@@ -1,13 +1,11 @@
-import mongoose, { ConnectOptions } from "mongoose";
+import mongoose from "mongoose";
 
 export const connectMongoDb = async () => {
   try {
     const connection = process.env.MONGO_URL || "mongodb://localhost:27017";
     await mongoose.connect(connection, {
       dbName: process.env.DB_NAME || "rentripplemongo",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    } as ConnectOptions);
+    });
 
     mongoose.connection.on("connected", () => {
       console.log("Connected to MongoDB");

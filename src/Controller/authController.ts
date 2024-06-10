@@ -132,21 +132,18 @@ export const verifySecurityAnswers = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const { email, securityQuestions } = req.body;
-
+    const { email, securityQuestion, securityAnswer } = req.body;
+    console.log("Request Body:", req.body);
     const user = await User.findOne({ email });
     if (!user) {
       throw new Unauthorized("Invalid email");
     }
 
-    for (const sq of securityQuestions) {
-      const isMatch = await user.checkSecurityAnswer(sq.question, sq.answer);
-      if (!isMatch) {
-        throw new Unauthorized("Security answer is incorrect");
-      }
+    const isMatch = await user.checkSecurityAnswer(securityQuestion, securityAnswer);
+    if (!isMatch) {
+      throw new Unauthorized("Security answer is incorrect");
     }
-
-    res.sendStatus(200);
+    res.json({ message: "Security answer is correct" });
   } catch (error: any) {
     next(error);
   }

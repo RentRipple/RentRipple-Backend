@@ -41,6 +41,16 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:8000/api/auth/verify-security-answers
+Content-Type: application/json
+
+{
+    "email": "khushbu1@test.com",
+    "securityQuestion": "What was your childhood nickname?", 
+    "securityAnswer": "Johnny" 
+}
+
+###
 DELETE  http://localhost:8000/api/auth/logout
 Content-Type: application/json
 

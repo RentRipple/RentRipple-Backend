@@ -11,6 +11,10 @@ AuthRoutes.post("/refresh-token", authController.refreshToken);
 
 AuthRoutes.post("/forgot-password", authController.forgotPassword);
 
-AuthRoutes.post("/reset-password", authController.resetPassword);
+// AuthRoutes.post("/reset-password", authController.resetPassword);
+AuthRoutes.post(
+  "/verify-security-answers",
+  authController.verifySecurityAnswers,
+);
 
 AuthRoutes.delete("/logout", authController.logoutUser);

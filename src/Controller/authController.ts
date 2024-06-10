@@ -1,18 +1,15 @@
 import { Request, Response, NextFunction } from "express";
-import { BadRequest } from "http-errors";
+import { BadRequest, Unauthorized } from "http-errors";
 import {
   signedAccessToken,
   signedRefreshToken,
   verifyRefreshToken,
-  generateResetToken,
-  verifyResetToken,
 } from "../Helpers/generateJWTTokens";
 import { User } from "../Models/User.model";
 import { loginSchema, registerationSchema } from "../Helpers/validationSchema";
 import { connectRedis } from "../Helpers/connectRedis";
 import { RedisClientType } from "redis";
 import { connectMongoDb } from "../Helpers/connectMongoDb";
-import bcrypt from "bcryptjs";
 
 connectMongoDb();
 
@@ -22,12 +19,17 @@ export const registerUser = async (
   next: NextFunction,
 ) => {
   try {
-    const { userName, email, password } = req.body;
+    const { userName, email, password, securityQuestions } = req.body;
+    // Log the request body for debugging
+    console.log("Request Body:", req.body);
     const result = registerationSchema.validate({
       userName,
       email,
       password,
+      securityQuestions,
     });
+    // Log the validation result for debugging
+    console.log("Validation Result:", result);
     if (result.error) {
       throw BadRequest(result.error.message);
     }
@@ -124,6 +126,32 @@ export const logoutUser = async (
   }
 };
 
+export const verifySecurityAnswers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const { email, securityQuestions } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new Unauthorized("Invalid email");
+    }
+
+    for (const sq of securityQuestions) {
+      const isMatch = await user.checkSecurityAnswer(sq.question, sq.answer);
+      if (!isMatch) {
+        throw new Unauthorized("Security answer is incorrect");
+      }
+    }
+
+    res.sendStatus(200);
+  } catch (error: any) {
+    next(error);
+  }
+};
+
 export const forgotPassword = async (
   req: Request,
   res: Response,
@@ -135,35 +163,33 @@ export const forgotPassword = async (
     if (!user) {
       throw BadRequest("User not found");
     }
-    const resetToken = await generateResetToken(user.id);
-    res.json({ message: "Reset password email sent" });
+    res.json({ message: "Next is Security Question" });
   } catch (error: any) {
     next(error);
   }
 };
 
-export const resetPassword = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const { resetToken, newPassword } = req.body;
-    const userId = await verifyResetToken(resetToken);
-    const user = await User.findById(userId);
-    if (!user) {
-      throw BadRequest("User not found");
-    }
-    const isMatch = await user.checkPassword(newPassword);
-    if (!isMatch) {
-      throw BadRequest("Invalid email or password");
-    }
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
-    user.password = hashedPassword;
-    await user.save();
-    res.json({ message: "Password reset successfully" });
-  } catch (error: any) {
-    next(error);
-  }
-};
+// export const resetPassword = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction,
+// ) => {
+//   try {
+//     const { resetToken, newPassword } = req.body;
+//     const user = await User.findById(                                                                  );
+//     if (!user) {
+//       throw BadRequest("User not found");
+//     }
+//     const isMatch = await user.checkPassword(newPassword);
+//     if (!isMatch) {
+//       throw BadRequest("Invalid email or password");
+//     }
+//     const salt = await bcrypt.genSalt(10);
+//     const hashedPassword = await bcrypt.hash(newPassword, salt);
+//     user.password = hashedPassword;
+//     await user.save();
+//     res.json({ message: "Password reset successfully" });
+//   } catch (error: any) {
+//     next(error);
+//   }
+// };

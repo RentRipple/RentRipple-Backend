@@ -6,11 +6,11 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-    "email": "khushbu1@test.com",
+    "email": "khushbu@test.com",
     "password": "12345678",
     "userName": "test",
     "securityQuestions": [
-    { "question": "What was your childhood nickname?", "answer": "Johnny" },
+    { "question": "What was your childhood nickname?", "answer": "Johnny  " },
     { "question": "What is the name of your favorite childhood friend?", "answer": "Doe" },
     { "question": "What is your favorite movie?", "answer": "Inception" }
   ]

@@ -28,6 +28,6 @@ services:
       - mongo
     volumes:
       - .:/usr/src/app
-  
+
 volumes:
   mongo-data:

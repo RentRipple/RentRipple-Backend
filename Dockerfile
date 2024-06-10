@@ -4,9 +4,6 @@ FROM node:18
 # Set the working directory
 WORKDIR /usr/src/app
 
-# Install TypeScript globally
-RUN npm install -g typescript
-
 # Copy package.json and package-lock.json files
 COPY package*.json ./
 

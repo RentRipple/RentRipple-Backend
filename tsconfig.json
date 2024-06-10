@@ -9,7 +9,7 @@
     "skipLibCheck": true,
     "outDir": "./dist",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "types": ["node"]
-  }
+    "emitDecoratorMetadata": true
+  },
+  "types": ["node"]
 }

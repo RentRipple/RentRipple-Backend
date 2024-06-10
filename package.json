@@ -27,7 +27,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "rm -rf dist",
+    "prebuild": "npm i --save-dev @types/node && rm -rf dist",
     "build": "tsc",
     "start": "npm run build && node dist/index.js",
     "dev": "nodemon src/index.ts",

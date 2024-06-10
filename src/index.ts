@@ -7,7 +7,6 @@ import { verifyAccessToken } from "./Helpers/generateJWTTokens";
 
 dotenv.config();
 
-
 const app: Express = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

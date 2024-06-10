@@ -4,8 +4,8 @@ import {
   signedAccessToken,
   signedRefreshToken,
   verifyRefreshToken,
-  generateResetToken, 
-  verifyResetToken
+  generateResetToken,
+  verifyResetToken,
 } from "../Helpers/generateJWTTokens";
 import { User } from "../Models/User.model";
 import { loginSchema, registerationSchema } from "../Helpers/validationSchema";

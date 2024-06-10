@@ -13,7 +13,6 @@ import { connectRedis } from "../Helpers/connectRedis";
 import { RedisClientType } from "redis";
 import { connectMongoDb } from "../Helpers/connectMongoDb";
 import bcrypt from "bcryptjs";
-import { sendResetEmail } from "../Helpers/sendEmail";
 
 connectMongoDb();
 
@@ -135,7 +134,6 @@ export const forgotPassword = async (
       throw BadRequest("User not found");
     }
     const resetToken = await generateResetToken(user.id);
-    await sendResetEmail(email, resetToken); // Send the reset token via email
     res.json({ message: "Reset password email sent" });
   } catch (error: any) {
     next(error);

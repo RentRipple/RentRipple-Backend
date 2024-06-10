@@ -1,5 +1,5 @@
 ### Get req
-GET http://localhost:6000/docs
+GET http://localhost:8000/docs
 
 ### x
 POST http://localhost:8000/api/auth/register
@@ -11,7 +11,7 @@ Content-Type: application/json
     "userName": "test"
 }
 ###
-POST http://localhost:6000/auth/login
+POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
@@ -20,14 +20,14 @@ Content-Type: application/json
 }
 
 ### 
-POST http://localhost:6000/auth/refresh-token
+POST http://localhost:8000/api/auth/refresh-token
 Content-Type: application/json
 
 {
 "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc4ODAwNTIsImV4cCI6MTc0OTQzNzY1MiwiYXVkIjoiNjY2MzU1MTY3ZWU2ZDk5OTZjMDMzN2Q2IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.UUmflSMsYa9ClAQZyfYHQoaaPnHc18jt-pb3WuVifFE"
 }
 ###
-DELETE  http://localhost:6000/auth/logout
+DELETE  http://localhost:8000/api/auth/logout
 Content-Type: application/json
 
 {  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc4ODAwNTIsImV4cCI6MTc0OTQzNzY1MiwiYXVkIjoiNjY2MzU1MTY3ZWU2ZDk5OTZjMDMzN2Q2IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.UUmflSMsYa9ClAQZyfYHQoaaPnHc18jt-pb3WuVifFE"

@@ -27,12 +27,11 @@ App will run on http://127.0.0.1:6000
 
 ```bash
 # Get repository
-$ git clone https://github.com/RentRipple/RentRipple-Backend.git & cd RentRipple-Backend/
+$ git clone https://github.com/RentRipple/RentRipple-Backend.git && cd RentRipple-Backend/
 
 # Run application
-$ docker-compose up
+$ docker-compose up --build
 
-App will run on http://127.0.0.1:6000
 ```
 
 ## Redis

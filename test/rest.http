@@ -33,13 +33,19 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8000/auth/forgot-password
+POST http://localhost:8000/api/auth/forgot-password
+Content-Type: application/json
+
+{
+    "email": "khushbu@test.com"
+}
+
+###
 DELETE  http://localhost:8000/api/auth/logout
 Content-Type: application/json
 
 {
     "email": "khushbu@gmail.com"
-{  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc4ODAwNTIsImV4cCI6MTc0OTQzNzY1MiwiYXVkIjoiNjY2MzU1MTY3ZWU2ZDk5OTZjMDMzN2Q2IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.UUmflSMsYa9ClAQZyfYHQoaaPnHc18jt-pb3WuVifFE"
 }
 
 

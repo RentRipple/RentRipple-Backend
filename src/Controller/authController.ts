@@ -163,7 +163,10 @@ export const forgotPassword = async (
     if (!user) {
       throw BadRequest("User not found");
     }
-    res.json({ message: "Next is Security Question" });
+    const randomIndex = Math.floor(Math.random() * user.securityQuestions.length);
+    const randomQuestion = user.securityQuestions[randomIndex];
+
+    res.json({ question: randomQuestion.question });
   } catch (error: any) {
     next(error);
   }
@@ -175,7 +178,7 @@ export const forgotPassword = async (
 //   next: NextFunction,
 // ) => {
 //   try {
-//     const { resetToken, newPassword } = req.body;
+//     const { newPassword } = req.body;
 //     const user = await User.findById(                                                                  );
 //     if (!user) {
 //       throw BadRequest("User not found");

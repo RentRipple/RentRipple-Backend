@@ -6,8 +6,8 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-    "email": "miti@test.com",
-    "password": "Khushbu@123",
+    "email": "yash1@test.com",
+    "password": "123456789",
     "userName": "test",
     "securityQuestions": [
     { "question": "What was your childhood nickname?", "answer": "Johnny  " },
@@ -20,7 +20,7 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "hetvi@test.com",
+    "email": "yash@test.com",
     "password": "khushbu123"
 }
 
@@ -37,7 +37,7 @@ POST http://localhost:8000/api/auth/forgot-password
 Content-Type: application/json
 
 {
-    "email": "hetvi@test.com"
+    "email": "khush@test.com"
 }
 
 ###
@@ -45,9 +45,9 @@ POST http://localhost:8000/api/auth/verify-security-answers
 Content-Type: application/json
 
 {
-    "email": "hetvi@test.com",
-    "securityQuestion": "What is your favorite movie?",
-    "securityAnswer": "Inception" 
+    "email": "khush@test.com",
+    "securityQuestion": "What is the name of your favorite childhood friend?", 
+    "securityAnswer": "Doe" 
 }
 
 ###
@@ -55,7 +55,7 @@ POST http://localhost:8000/api/auth/reset-password
 Content-Type: application/json
 
 {
-    "email": "hetvi@test.com",
+    "email": "yash@test.com",
     "newPassword": "khushbu123"
 }
 

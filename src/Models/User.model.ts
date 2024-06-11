@@ -7,10 +7,14 @@ interface ISecurityQuestion {
 }
 
 interface IUser extends Document {
-  userName: string;
+  firstName: string; 
+  lastName: string; 
   email: string;
   password: string;
   securityQuestions: ISecurityQuestion[];
+  gender: string; 
+  number: string; 
+  accountType: string; 
   checkPassword(password: string): Promise<boolean>;
   checkSecurityAnswer(question: string, answer: string): Promise<boolean>;
 }
@@ -30,20 +34,10 @@ const SecurityQuestionSchema: Schema = new Schema({
 });
 
 const UserSchema: Schema<IUser> = new Schema({
-  userName: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    lowercase: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  email: { type: String, required: true, lowercase: true, unique: true },
+  password: { type: String, required: true },
   securityQuestions: {
     type: [SecurityQuestionSchema],
     validate: {
@@ -51,6 +45,9 @@ const UserSchema: Schema<IUser> = new Schema({
       message: "{PATH} must have exactly 3 elements",
     },
   },
+  gender: { type: String, required: true },
+  number: { type: String, required: true },
+  accountType: { type: String, required: true },
 });
 
 UserSchema.pre<IUser>("save", async function (next) {

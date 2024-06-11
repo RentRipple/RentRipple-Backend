@@ -20,13 +20,26 @@ export const registerUser = async (
   next: NextFunction,
 ) => {
   try {
-    const { userName, email, password, securityQuestions } = req.body;
+    const {  firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+      gender,
+      number,
+      accountType,
+      securityQuestions, } = req.body;
     // Log the request body for debugging
     console.log("Request Body:", req.body);
     const result = registerationSchema.validate({
-      userName,
+      firstName,
+      lastName,
       email,
       password,
+      confirmPassword,
+      gender,
+      number,
+      accountType,
       securityQuestions,
     });
     // Log the validation result for debugging

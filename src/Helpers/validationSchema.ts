@@ -15,12 +15,20 @@ const securityQuestionSchema = Joi.object({
 });
 
 export const registerationSchema = Joi.object({
-  userName: Joi.string().alphanum().min(3).max(30).required(),
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  //userName: Joi.string().alphanum().min(3).max(30).required(),
   email: Joi.string().email().lowercase().required(),
   password: Joi.string()
     .min(8)
-    .pattern(new RegExp("^[a-zA-Z0-9]{8,}$"))
+    .pattern(new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+    ))
     .required(),
+  confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
+  gender: Joi.string().valid('Male', 'Female', 'Other').required(),
+  number: Joi.string().required(),
+  accountType: Joi.string().valid('Tenant', 'Landlord','user').required(),
   securityQuestions: Joi.array()
     .items(securityQuestionSchema)
     .length(3)
@@ -38,6 +46,8 @@ export const loginSchema = Joi.object({
 export const newPasswordSchema = Joi.object({
   password: Joi.string()
     .min(8)
-    .pattern(new RegExp("^[a-zA-Z0-9]{8,}$"))
+    .pattern(new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+    ))
     .required(),
 });

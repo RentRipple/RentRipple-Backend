@@ -19,7 +19,9 @@ export const registerationSchema = Joi.object({
   email: Joi.string().email().lowercase().required(),
   password: Joi.string()
     .min(8)
-    .pattern(new RegExp("^[a-zA-Z0-9]{8,}$"))
+    .pattern(new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+    ))
     .required(),
   securityQuestions: Joi.array()
     .items(securityQuestionSchema)
@@ -38,6 +40,8 @@ export const loginSchema = Joi.object({
 export const newPasswordSchema = Joi.object({
   password: Joi.string()
     .min(8)
-    .pattern(new RegExp("^[a-zA-Z0-9]{8,}$"))
+    .pattern(new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
+    ))
     .required(),
 });

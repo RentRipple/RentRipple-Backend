@@ -6,10 +6,11 @@ import {
   verifyRefreshToken,
 } from "../Helpers/generateJWTTokens";
 import { User } from "../Models/User.model";
-import { loginSchema, registerationSchema } from "../Helpers/validationSchema";
+import { loginSchema, registerationSchema, newPasswordSchema } from "../Helpers/validationSchema";
 import { connectRedis } from "../Helpers/connectRedis";
 import { RedisClientType } from "redis";
 import { connectMongoDb } from "../Helpers/connectMongoDb";
+//import bcrypt from "bcryptjs";
 
 connectMongoDb();
 
@@ -169,27 +170,39 @@ export const forgotPassword = async (
   }
 };
 
-// export const resetPassword = async (
-//   req: Request,
-//   res: Response,
-//   next: NextFunction,
-// ) => {
-//   try {
-//     const { newPassword } = req.body;
-//     const user = await User.findById(                                                                  );
-//     if (!user) {
-//       throw BadRequest("User not found");
-//     }
-//     const isMatch = await user.checkPassword(newPassword);
-//     if (!isMatch) {
-//       throw BadRequest("Invalid email or password");
-//     }
-//     const salt = await bcrypt.genSalt(10);
-//     const hashedPassword = await bcrypt.hash(newPassword, salt);
-//     user.password = hashedPassword;
-//     await user.save();
-//     res.json({ message: "Password reset successfully" });
-//   } catch (error: any) {
-//     next(error);
-//   }
-// };
+export const resetPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { email, newPassword } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw BadRequest("User not found");
+    }
+    const checkPasswordConstraints = newPasswordSchema.validate(req.body);
+    console.log("Validation Result:", checkPasswordConstraints);
+    if (checkPasswordConstraints.error) {
+      throw BadRequest(checkPasswordConstraints.error.message);
+    }
+
+
+
+
+
+    const isMatch = await user.checkPassword(newPassword);
+    if (!isMatch) {
+      throw BadRequest("Invalid email or password");
+    }
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPassword = await bcrypt.hash(newPassword, salt);
+    // user.password = hashedPassword;
+    user.password = newPassword;
+    console.log(user.password);
+    await user.save();
+    res.json({ message: "Password reset successfully" });
+  } catch (error: any) {
+    next(error);
+  }
+};

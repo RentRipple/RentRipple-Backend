@@ -34,3 +34,10 @@ export const loginSchema = Joi.object({
     .pattern(new RegExp("^[a-zA-Z0-9]{8,}$"))
     .required(),
 });
+
+export const newPasswordSchema = Joi.object({
+  password: Joi.string()
+    .min(8)
+    .pattern(new RegExp("^[a-zA-Z0-9]{8,}$"))
+    .required(),
+});

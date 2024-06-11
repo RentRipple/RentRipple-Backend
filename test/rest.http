@@ -6,7 +6,7 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-    "email": "khushbu@test.com",
+    "email": "khush@test.com",
     "password": "12345678",
     "userName": "test",
     "securityQuestions": [
@@ -20,8 +20,8 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "ya@test.com",
-    "password": "1235678"
+    "email": "khush@test.com",
+    "password": "12345678"
 }
 
 ### 
@@ -37,7 +37,7 @@ POST http://localhost:8000/api/auth/forgot-password
 Content-Type: application/json
 
 {
-    "email": "khushbu@test.com"
+    "email": "khush@test.com"
 }
 
 ###
@@ -45,9 +45,18 @@ POST http://localhost:8000/api/auth/verify-security-answers
 Content-Type: application/json
 
 {
-    "email": "khushbu1@test.com",
-    "securityQuestion": "What was your childhood nickname?", 
-    "securityAnswer": "Johnny" 
+    "email": "khush@test.com",
+    "securityQuestion": "What is the name of your favorite childhood friend?", 
+    "securityAnswer": "Doe" 
+}
+
+###
+POST http://localhost:8000/api/auth/reset-password
+Content-Type: application/json
+
+{
+    "email": "khush@test.com",
+    "newPassword": "123456"
 }
 
 ###
@@ -55,7 +64,7 @@ DELETE  http://localhost:8000/api/auth/logout
 Content-Type: application/json
 
 {
-    "email": "khushbu@gmail.com"
+    "email": "khush@gmail.com"
 }
 
 

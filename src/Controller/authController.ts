@@ -181,26 +181,25 @@ export const resetPassword = async (
     if (!user) {
       throw BadRequest("User not found");
     }
-    const checkPasswordConstraints = newPasswordSchema.validate(req.body);
+
+    // Validate the new password against the schema
+    const checkPasswordConstraints = newPasswordSchema.validate({ password: newPassword });
     console.log("Validation Result:", checkPasswordConstraints);
     if (checkPasswordConstraints.error) {
       throw BadRequest(checkPasswordConstraints.error.message);
     }
 
-
-
-
-
+    // Check if the new password matches the old password
     const isMatch = await user.checkPassword(newPassword);
-    if (!isMatch) {
-      throw BadRequest("Invalid email or password");
+    if (isMatch) {
+      throw BadRequest("Use a different password than the current one");
     }
-    // const salt = await bcrypt.genSalt(10);
-    // const hashedPassword = await bcrypt.hash(newPassword, salt);
-    // user.password = hashedPassword;
+
+    // Update the user's password and save the user
     user.password = newPassword;
-    console.log(user.password);
     await user.save();
+
+    console.log(user.password);
     res.json({ message: "Password reset successfully" });
   } catch (error: any) {
     next(error);

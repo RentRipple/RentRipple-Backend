@@ -7,17 +7,28 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-    "email": "yash1@test.com",
-    "password": "12345678",
-    "userName": "test"
+    "firstName": "Khushbu",
+    "lastName": "Modi",
+    "email": "khushbu@test.com",
+    "password": "Khushbu@123",
+    "confirmPassword": "Khushbu@123",
+    "gender": "Female",
+    "number": "1234567890",
+    "accountType": "Tenant",
+    "securityQuestions": [
+        { "question": "What was your childhood nickname?", "answer": "Johnny" },
+        { "question": "What is the name of your favorite childhood friend?", "answer": "Doe" },
+        { "question": "What is your favorite movie?", "answer": "Inception" }
+    ]
 }
+
 ###
 POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "yash1@test.com",
-    "password": "12345678"
+    "email": "khushbu@test.com",
+    "password": "Khushbu@123"
 }
 
 ### 
@@ -27,9 +38,40 @@ Content-Type: application/json
 {
 "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc4ODAwNTIsImV4cCI6MTc0OTQzNzY1MiwiYXVkIjoiNjY2MzU1MTY3ZWU2ZDk5OTZjMDMzN2Q2IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.UUmflSMsYa9ClAQZyfYHQoaaPnHc18jt-pb3WuVifFE"
 }
+
+###
+POST http://localhost:8000/api/auth/forgot-password
+Content-Type: application/json
+
+{
+    "email": "khushbu@test.com"
+}
+
+###
+POST http://localhost:8000/api/auth/verify-security-answers
+Content-Type: application/json
+
+{
+    "email": "khushbu@test.com",
+    "securityQuestion": "What is your favorite movie?", 
+    "securityAnswer": "ABCD" 
+}
+
+###
+POST http://localhost:8000/api/auth/reset-password
+Content-Type: application/json
+
+{
+    "email": "khushbu@test.com",
+    "newPassword": "Khush@123"
+}
+
 ###
 DELETE  http://localhost:8000/api/auth/logout
 Content-Type: application/json
 
-{  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTc4ODAwNTIsImV4cCI6MTc0OTQzNzY1MiwiYXVkIjoiNjY2MzU1MTY3ZWU2ZDk5OTZjMDMzN2Q2IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.UUmflSMsYa9ClAQZyfYHQoaaPnHc18jt-pb3WuVifFE"
+{
+    "email": "khush@gmail.com"
 }
+
+

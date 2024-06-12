@@ -6,12 +6,12 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-    "firstName": "John",
-    "lastName": "Doe",
-    "email": "y1@t.com",
-    "password": "Yash@123",
-    "confirmPassword": "Yash@123",
-    "gender": "Male",
+    "firstName": "Khushbu",
+    "lastName": "Modi",
+    "email": "khushbu@test.com",
+    "password": "Khushbu@123",
+    "confirmPassword": "Khushbu@123",
+    "gender": "Female",
     "number": "1234567890",
     "accountType": "Tenant",
     "securityQuestions": [
@@ -26,8 +26,8 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "y@t.com",
-    "password": "yAsh@123"
+    "email": "khushbu@test.com",
+    "password": "Khushbu@123"
 }
 
 ### 
@@ -43,7 +43,7 @@ POST http://localhost:8000/api/auth/forgot-password
 Content-Type: application/json
 
 {
-    "email": "y@t.com"
+    "email": "khushbu@test.com"
 }
 
 ###
@@ -51,9 +51,9 @@ POST http://localhost:8000/api/auth/verify-security-answers
 Content-Type: application/json
 
 {
-    "email": "y@t.com",
-    "securityQuestion": "What is the name of your favorite childhood friend?", 
-    "securityAnswer": "Doe" 
+    "email": "khushbu@test.com",
+    "securityQuestion": "What is your favorite movie?", 
+    "securityAnswer": "ABCD" 
 }
 
 ###
@@ -61,8 +61,8 @@ POST http://localhost:8000/api/auth/reset-password
 Content-Type: application/json
 
 {
-    "email": "y@t.com",
-    "newPassword": "yAsh@123"
+    "email": "khushbu@test.com",
+    "newPassword": "Khush@123"
 }
 
 ###

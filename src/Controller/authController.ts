@@ -150,14 +150,14 @@ export const verifySecurityAnswers = async (
     console.log("Request Body:", req.body);
     const user = await User.findOne({ email });
     if (!user) {
-      throw new Unauthorized("Invalid email");
+      throw new Unauthorized("Unauthorized access");
     }
 
     const isMatch = await user.checkSecurityAnswer(securityQuestion, securityAnswer);
     if (!isMatch) {
-      throw new Unauthorized("Security answer is incorrect");
+      throw new Unauthorized("Unauthorized access");
     }
-    res.json({ message: "Security answer is correct" });
+    res.json({ message: "Success" });
   } catch (error: any) {
     next(error);
   }
@@ -172,7 +172,7 @@ export const forgotPassword = async (
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      throw BadRequest("User not found");
+      throw BadRequest("Unauthorized access");
     }
     const randomIndex = Math.floor(Math.random() * user.securityQuestions.length);
     const randomQuestion = user.securityQuestions[randomIndex];
@@ -192,7 +192,7 @@ export const resetPassword = async (
     const { email, newPassword } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      throw BadRequest("User not found");
+      throw BadRequest("Unauthorized access");
     }
 
     // Validate the new password against the schema

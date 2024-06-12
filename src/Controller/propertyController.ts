@@ -15,7 +15,7 @@ export const addProperty = async (
     if (error) {
       throw BadRequest(error.message);
     }
-    
+
     // Create a new Property instance
     const property = new Property(value);
 

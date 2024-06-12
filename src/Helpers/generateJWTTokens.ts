@@ -1,14 +1,15 @@
 import * as JWT from "jsonwebtoken";
-import { BadRequest, InternalServerError, Unauthorized } from "http-errors";
+import createError, { InternalServerError, Unauthorized } from "http-errors";
 import { Request, Response, NextFunction } from "express";
-import { connectRedis } from "./connectRedis";
 import { RedisClientType, SetOptions } from "redis";
+import { connectRedis } from "./connectRedis";
+
 export const signedAccessToken = async (userId: string) => {
   try {
     const payload = {};
     console.log(process.env.ACCESS_TOKEN_SECRET!);
     const options = {
-      expiresIn: "40s",
+      expiresIn: "10s",
       issuer: "rentripple.com",
       audience: userId,
     };
@@ -51,66 +52,45 @@ export const verifyAccessToken = async (
     const token = authHeader.split(" ")[1];
     const payload = JWT.verify(token, process.env.ACCESS_TOKEN_SECRET!);
     if (!payload) {
-      throw Unauthorized("Unauthorized");
+      throw new Unauthorized("Unauthorized");
     }
     next();
   } catch (error: any) {
-    if (error.name === "JsonWebTokenError") {
-      next(Unauthorized("Unauthorized"));
+    if (
+      error.name === "JsonWebTokenError" ||
+      error.name === "TokenExpiredError"
+    ) {
+      next(createError(401, "Unauthorized"));
     } else {
-      next(Unauthorized(error.message));
+      next(error);
     }
   }
 };
 
-export const verifyRefreshToken = async (
-  refreshToken: string,
-  next: NextFunction,
-) => {
+export const verifyRefreshToken = async (refreshToken: string) => {
   try {
     if (!refreshToken) {
-      throw BadRequest("Unauthorized");
+      throw new Unauthorized("Unauthorized");
     }
     const payload: any = JWT.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET!,
     );
     if (!payload) {
-      throw Unauthorized("Unauthorized");
+      throw new Unauthorized("Unauthorized");
     }
     const userId = payload.aud;
     const redisClient: RedisClientType = connectRedis();
     const refreshTokenValue = await redisClient.get(userId);
     if (refreshTokenValue !== refreshToken) {
-      throw Unauthorized("Unauthorized");
+      throw new Unauthorized("Unauthorized");
     }
-
     return userId;
   } catch (error: any) {
     if (error.name === "JsonWebTokenError") {
-      next(Unauthorized("Unauthorized"));
+      throw new Unauthorized("Unauthorized");
     } else {
-      next(Unauthorized(error.message));
+      throw new Unauthorized(error.message);
     }
-  }
-};
-
-export const generateResetToken = async (userId: string): Promise<string> => {
-  const payload = { userId };
-  const resetToken = JWT.sign(payload, process.env.RESET_TOKEN_SECRET!, {
-    expiresIn: "1h",
-  });
-  return resetToken;
-};
-
-export const verifyResetToken = async (resetToken: string): Promise<string> => {
-  try {
-    const decoded = JWT.verify(resetToken, process.env.RESET_TOKEN_SECRET!);
-    if (!decoded || typeof decoded !== "object" || !("userId" in decoded)) {
-      throw new Error("Invalid token");
-    }
-    return decoded.userId;
-  } catch (error) {
-    throw new Error("Invalid or expired token");
   }
 };

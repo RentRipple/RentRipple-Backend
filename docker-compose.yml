@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   redis:
@@ -11,21 +11,35 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
-  app:
+  app-backend:
     build: .
     ports:
-      - "6000:6000"
+      - "8000:8000"
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - MONGO_URL=mongodb://mongo:27017
-      - PORT=6000
+      - PORT=8000
       - NODE_ENV=development
       - DB_NAME=rentripplemongo
+      - ACCESS_TOKEN_SECRET=b20143ec814d7ce470e55614732cf0168dbf5dc39d0fc470cecf783914f78b31
+      - REFRESH_TOKEN_SECRET=45c5ea83abde2252abae9b47ebe4e61a985e8b7c2b68886c9f79091db86ddeed
     depends_on:
+      - redis
       - mongo
     volumes:
       - .:/usr/src/app
-  
+  app-frontend:
+    build: ../RentRipple-Frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - BACKEND_URL=http://app-backend:8000/api
+      - PORT=3000
+      - NODE_ENV=development
+    depends_on:
+      - app-backend
+    volumes:
+      - ../RentRipple-Frontend:/usr/src/app
 volumes:
   mongo-data:

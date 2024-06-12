@@ -6,7 +6,11 @@ import {
   verifyRefreshToken,
 } from "../Helpers/generateJWTTokens";
 import { User } from "../Models/User.model";
-import { loginSchema, registerationSchema, newPasswordSchema } from "../Helpers/validationSchema";
+import {
+  loginSchema,
+  registerationSchema,
+  newPasswordSchema,
+} from "../Helpers/validationSchema";
 import { connectRedis } from "../Helpers/connectRedis";
 import { RedisClientType } from "redis";
 import { connectMongoDb } from "../Helpers/connectMongoDb";
@@ -20,7 +24,8 @@ export const registerUser = async (
   next: NextFunction,
 ) => {
   try {
-    const {  firstName,
+    const {
+      firstName,
       lastName,
       email,
       password,
@@ -28,7 +33,8 @@ export const registerUser = async (
       gender,
       number,
       accountType,
-      securityQuestions, } = req.body;
+      securityQuestions,
+    } = req.body;
     // Log the request body for debugging
     console.log("Request Body:", req.body);
     const result = registerationSchema.validate({
@@ -153,7 +159,10 @@ export const verifySecurityAnswers = async (
       throw new Unauthorized("Unauthorized access");
     }
 
-    const isMatch = await user.checkSecurityAnswer(securityQuestion, securityAnswer);
+    const isMatch = await user.checkSecurityAnswer(
+      securityQuestion,
+      securityAnswer,
+    );
     if (!isMatch) {
       throw new Unauthorized("Unauthorized access");
     }
@@ -174,7 +183,9 @@ export const forgotPassword = async (
     if (!user) {
       throw BadRequest("Unauthorized access");
     }
-    const randomIndex = Math.floor(Math.random() * user.securityQuestions.length);
+    const randomIndex = Math.floor(
+      Math.random() * user.securityQuestions.length,
+    );
     const randomQuestion = user.securityQuestions[randomIndex];
 
     res.json({ question: randomQuestion.question });
@@ -196,7 +207,9 @@ export const resetPassword = async (
     }
 
     // Validate the new password against the schema
-    const checkPasswordConstraints = newPasswordSchema.validate({ password: newPassword });
+    const checkPasswordConstraints = newPasswordSchema.validate({
+      password: newPassword,
+    });
     console.log("Validation Result:", checkPasswordConstraints);
     if (checkPasswordConstraints.error) {
       throw BadRequest(checkPasswordConstraints.error.message);

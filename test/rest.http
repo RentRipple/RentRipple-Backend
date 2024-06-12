@@ -1,5 +1,6 @@
 ### Get req
-GET http://localhost:8000/docs
+GET http://localhost:8000/proctected
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTgxNDg3ODEsImV4cCI6MTcxODE0ODgyMSwiYXVkIjoiNjY2NzU5ODA0NzE1Y2I2YTE5OTljNjM3IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.274BU1V1QUi-sQnvUp2Dvq4oEh-ofrd_ecFdEN0wF7w
 
 ### x
 POST http://localhost:8000/api/auth/register

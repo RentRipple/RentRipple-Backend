@@ -7,14 +7,14 @@ interface ISecurityQuestion {
 }
 
 interface IUser extends Document {
-  firstName: string; 
-  lastName: string; 
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   securityQuestions: ISecurityQuestion[];
-  gender: string; 
-  number: string; 
-  accountType: string; 
+  gender: string;
+  number: string;
+  accountType: string;
   checkPassword(password: string): Promise<boolean>;
   checkSecurityAnswer(question: string, answer: string): Promise<boolean>;
 }

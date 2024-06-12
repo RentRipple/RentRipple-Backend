@@ -1,5 +1,5 @@
 import * as JWT from "jsonwebtoken";
-import { InternalServerError, Unauthorized } from "http-errors";
+import createError, { InternalServerError, Unauthorized } from "http-errors";
 import { Request, Response, NextFunction } from "express";
 import { RedisClientType, SetOptions } from "redis";
 import { connectRedis } from "./connectRedis";
@@ -9,7 +9,7 @@ export const signedAccessToken = async (userId: string) => {
     const payload = {};
     console.log(process.env.ACCESS_TOKEN_SECRET!);
     const options = {
-      expiresIn: "40s",
+      expiresIn: "10s",
       issuer: "rentripple.com",
       audience: userId,
     };
@@ -56,10 +56,13 @@ export const verifyAccessToken = async (
     }
     next();
   } catch (error: any) {
-    if (error.name === "JsonWebTokenError") {
-      throw new Unauthorized("Unauthorized");
+    if (
+      error.name === "JsonWebTokenError" ||
+      error.name === "TokenExpiredError"
+    ) {
+      next(createError(401, "Unauthorized"));
     } else {
-      throw new Unauthorized(error.message);
+      next(error);
     }
   }
 };

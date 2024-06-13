@@ -33,3 +33,20 @@ export const addProperty = async (
     next(error);
   }
 };
+
+export const getProperties = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    // Fetch all properties from the database
+    const properties = await Property.find();
+
+    // Return the properties as the response
+    res.status(200).json(properties);
+  } catch (error) {
+    // Pass the error to the error handling middleware
+    next(error);
+  }
+};

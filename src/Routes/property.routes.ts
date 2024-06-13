@@ -5,3 +5,4 @@ export const PropertyRoutes = express.Router();
 
 // AuthRoutes.post("/add-property", authController.addProperty);
 PropertyRoutes.post("/add-property", propertyController.addProperty);
+PropertyRoutes.get("/get-properties", propertyController.getProperties);

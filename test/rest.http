@@ -48,7 +48,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8000/property/add-property
+POST http://localhost:8000/api/property/add-property
 Content-Type: application/json
 
 {

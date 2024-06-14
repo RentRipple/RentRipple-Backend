@@ -7,14 +7,13 @@ interface ISecurityQuestion {
 }
 
 interface IUser extends Document {
-  firstName: string; 
-  lastName: string; 
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   securityQuestions: ISecurityQuestion[];
-  gender: string; 
-  number: string; 
-  accountType: string; 
+  gender: string;
+  number: string;
   checkPassword(password: string): Promise<boolean>;
   checkSecurityAnswer(question: string, answer: string): Promise<boolean>;
 }
@@ -47,7 +46,6 @@ const UserSchema: Schema<IUser> = new Schema({
   },
   gender: { type: String, required: true },
   number: { type: String, required: true },
-  accountType: { type: String, required: true },
 });
 
 UserSchema.pre<IUser>("save", async function (next) {

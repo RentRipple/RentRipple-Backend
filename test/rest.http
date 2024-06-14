@@ -8,16 +8,15 @@ Content-Type: application/json
 {
     "firstName": "Khushbu",
     "lastName": "Modi",
-    "email": "khushbu@test.com",
+    "email": "khushu@test.com",
     "password": "Khushbu@123",
     "confirmPassword": "Khushbu@123",
     "gender": "Female",
     "number": "1234567890",
-    "accountType": "Tenant",
     "securityQuestions": [
-        { "question": "What was your childhood nickname?", "answer": "Johnny" },
-        { "question": "What is the name of your favorite childhood friend?", "answer": "Doe" },
-        { "question": "What is your favorite movie?", "answer": "Inception" }
+        { "question": "What was your childhood nickname?", "answer": "test" },
+        { "question": "What is the name of your favorite childhood friend?", "answer": "test" },
+        { "question": "What is your favorite movie?", "answer": "test" }
     ]
 }
 
@@ -27,7 +26,7 @@ Content-Type: application/json
 
 {
     "email": "khushbu@test.com",
-    "password": "Khushbu@123"
+    "password": "Khush@123"
 }
 
 ### 
@@ -43,7 +42,7 @@ POST http://localhost:8000/api/auth/forgot-password
 Content-Type: application/json
 
 {
-    "email": "khushbu@test.com"
+    "email": "khush@test.com"
 }
 
 ###
@@ -51,9 +50,9 @@ POST http://localhost:8000/api/auth/verify-security-answers
 Content-Type: application/json
 
 {
-    "email": "khushbu@test.com",
+    "email": "khushu@test.com",
     "securityQuestion": "What is your favorite movie?", 
-    "securityAnswer": "ABCD" 
+    "securityAnswer": "test" 
 }
 
 ###
@@ -61,8 +60,8 @@ POST http://localhost:8000/api/auth/reset-password
 Content-Type: application/json
 
 {
-    "email": "khushbu@test.com",
-    "newPassword": "Khush@123"
+    "email": "khushu@test.com",
+    "newPassword": "Khushbu@123"
 }
 
 ###
@@ -70,7 +69,8 @@ DELETE  http://localhost:8000/api/auth/logout
 Content-Type: application/json
 
 {
-    "email": "khush@gmail.com"
+    "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTgzNzExMjcsImV4cCI6MTc0OTkyODcyNywiYXVkIjoiNjY2OGZjYjg0YzAxNzA0Nzc2ODBhNTE5IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.O0c-7TYb8j8mEDafXN8YjkF4qpX-hliEXd54Xu0aojY"
 }
+
 
 

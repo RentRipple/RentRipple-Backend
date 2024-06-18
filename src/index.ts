@@ -2,6 +2,7 @@ import * as dotenv from "dotenv";
 import express, { Express, Request, Response, NextFunction } from "express";
 import morgan from "morgan";
 import { AuthRoutes } from "./Routes/auth.routes";
+import { PropertyRoutes } from "./Routes/property.routes";
 import YAML from "yamljs";
 import createError from "http-errors";
 import swaggerUi from "swagger-ui-express";
@@ -29,6 +30,7 @@ app.get(
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/api/auth", AuthRoutes);
+app.use("/api/property", PropertyRoutes);
 
 // 404 Error Handler
 app.use((req: Request, res: Response, next: NextFunction) => {

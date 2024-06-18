@@ -1,5 +1,6 @@
 ### Get req
-GET http://localhost:8000/docs
+GET http://localhost:8000/proctected
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTgxNDg3ODEsImV4cCI6MTcxODE0ODgyMSwiYXVkIjoiNjY2NzU5ODA0NzE1Y2I2YTE5OTljNjM3IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.274BU1V1QUi-sQnvUp2Dvq4oEh-ofrd_ecFdEN0wF7w
 
 ### x
 POST http://localhost:8000/api/auth/register
@@ -46,6 +47,17 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:8000/api/property/add-property
+Content-Type: application/json
+
+{
+    "shortDescription": "1bhk",
+    "price": "143$",
+    "imageUrl": "https://www.google.com",
+    "location": "London"
+}
+###
+
 POST http://localhost:8000/api/auth/verify-security-answers
 Content-Type: application/json
 
@@ -73,4 +85,9 @@ Content-Type: application/json
 }
 
 
+<<<<<<< HEAD
 
+=======
+###
+GET http://localhost:8000/api/property/get-properties
+>>>>>>> b80de03400da069fa47ea4f79ac6fe60696840ce

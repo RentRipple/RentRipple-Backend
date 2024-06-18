@@ -38,3 +38,10 @@ export const loginSchema = Joi.object({
 export const newPasswordSchema = Joi.object({
   password: Joi.string().min(8).pattern(new RegExp(REGEX_PASSWORD)).required(),
 });
+
+export const propertySchema = Joi.object({
+  shortDescription: Joi.string().required(),
+  price: Joi.string().required(),
+  imageUrl: Joi.string().required(),
+  location: Joi.string().required(),
+});

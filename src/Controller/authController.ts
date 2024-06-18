@@ -51,6 +51,8 @@ export const registerUser = async (
     if (doesExist) {
       throw BadRequest(`${result.value.email} already exists.`);
     }
+    const user = new User(result.value);
+    await user.save();
     res.status(StatusCodes.CREATED).json({
       status: StatusCodes.CREATED,
       message: "Registration successfull",

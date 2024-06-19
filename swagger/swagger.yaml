@@ -4,18 +4,55 @@ info:
   description: "API endpoints for user authentication"
   version: "1.0.0"
 servers:
-  - url: "http://localhost:8000/api"
+  - url: "http://localhost:8000"
 components:
   securitySchemes:
     bearerAuth:
       type: "http"
       scheme: "bearer"
       bearerFormat: "JWT"
-security:
-  - bearerAuth: []
-
+  schemas:
+    SecurityQuestion:
+      type: object
+      properties:
+        question:
+          type: string
+          description: "Security question"
+        answer:
+          type: string
+          description: "Answer to the security question"
+    User:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: "User's first name"
+        lastName:
+          type: string
+          description: "User's last name"
+        email:
+          type: string
+          format: email
+          description: "User's email"
+        password:
+          type: string
+          format: password
+          description: "User's password"
+        securityQuestions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityQuestion'
+        gender:
+          type: string
+          description: "User's gender"
+        number:
+          type: string
+          description: "User's phone number"
+        accountType:
+          type: string
+          description: "User's account type"
 paths:
-  /docs:
+  /api-docs:
     get:
       tags:
         - "Documentation"
@@ -23,7 +60,7 @@ paths:
       responses:
         "200":
           description: "API documentation retrieved successfully"
-  /auth/register:
+  /api/auth/register:
     post:
       tags:
         - "Authentication"
@@ -33,19 +70,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                  description: "User's email"
-                password:
-                  type: string
-                  format: password
-                  description: "User's password"
-                userName:
-                  type: string
-                  description: "User's username"
+              $ref: '#/components/schemas/User'
       responses:
         "200":
           description: "User registered successfully"
@@ -53,7 +78,7 @@ paths:
           description: "Bad request - Missing or invalid parameters"
         "409":
           description: "Conflict - User already exists"
-  /auth/login:
+  /api/auth/login:
     post:
       tags:
         - "Authentication"
@@ -78,7 +103,7 @@ paths:
           description: "User logged in successfully"
         "401":
           description: "Unauthorized - Invalid credentials"
-  /auth/refresh-token:
+  /api/auth/refresh-token:
     post:
       tags:
         - "Authentication"
@@ -98,7 +123,7 @@ paths:
           description: "Token refreshed successfully"
         "401":
           description: "Unauthorized - Invalid or expired token"
-  /auth/logout:
+  /api/auth/logout:
     delete:
       tags:
         - "Authentication"
@@ -118,3 +143,75 @@ paths:
           description: "User logged out successfully"
         "401":
           description: "Unauthorized - Invalid or expired token"
+  /api/auth/forgot-password:
+    post:
+      tags:
+        - "Authentication"
+      summary: "Initiate forgot password process"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: "User's email"
+      responses:
+        "200":
+          description: "Email is valid, security question provided"
+        "404":
+          description: "Unauthorized access"
+  /api/auth/verify-security-question:
+    post:
+      tags:
+        - "Authentication"
+      summary: "Verify security question answer"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: "User's email"
+                answer:
+                  type: string
+                  description: "Answer to the security question"
+      responses:
+        "200":
+          description: "Security answer is correct"
+        "400":
+          description: "Invalid security answer"
+  /api/auth/reset-password:
+    post:
+      tags:
+        - "Authentication"
+      summary: "Reset user password"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  description: "User's email"
+                new_password:
+                  type: string
+                  format: password
+                  description: "New password"
+      responses:
+        "200":
+          description: "Password has been reset successfully"
+        "404":
+          description: "Unauthorized access"
+        "400":
+          description: "New password cannot be the same as the old password"

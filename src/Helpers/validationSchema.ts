@@ -24,7 +24,6 @@ export const registerationSchema = Joi.object({
   confirmPassword: Joi.string().valid(Joi.ref("password")).required(),
   gender: Joi.string().valid("Male", "Female", "Other").required(),
   number: Joi.string().required(),
-  accountType: Joi.string().valid("Tenant", "Landlord", "user").required(),
   securityQuestions: Joi.array()
     .items(securityQuestionSchema)
     .length(3)

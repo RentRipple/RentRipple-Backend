@@ -34,7 +34,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - BACKEND_URL=http://app-backend:8000/api
+      - REACT_APP_BACKEND_URL=http://localhost:8000
       - PORT=3000
       - NODE_ENV=development
     depends_on:

@@ -22,7 +22,12 @@ export const viewUserProfile = async (
   next: NextFunction,
 ) => {
   try {
-    const userId = await getUserIdFromBase64(req.body);
+    let accessToken: string | undefined = req.headers["authorization"];
+    if (!accessToken) {
+      throw new BadRequest("Access token not provided");
+    }
+    accessToken = accessToken.split(" ")[1];
+    const userId = await getUserIdFromBase64(accessToken);
     const userProfile = await User.findById(userId);
 
     if (!userProfile) {
@@ -49,7 +54,6 @@ export const editUserProfile = async (
     const { firstName, lastName, email, gender, number } = req.body;
 
     const userProfile = await User.findById(userId);
-
     if (!userProfile) {
       throw new NotFound("User profile not found");
     }

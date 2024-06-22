@@ -85,9 +85,6 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/api/user/localhost:8000/api/user/viewUserProfile
+GET http://localhost:8000/api/user/viewUserProfile
 Content-Type: application/json
-
-{
-    "email": "khushu@test.com"
-}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTgzNzEwNzIsImV4cCI6MTc0OTkyODgwMiwiYXVkIjoiNjY2OGZjYjg0YzAxNzA0Nzc2ODBhNTE5IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.7Z6Z6

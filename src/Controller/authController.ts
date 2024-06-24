@@ -92,7 +92,8 @@ export const loginUser = async (
       status: StatusCodes.OK,
       accessToken,
       refreshToken,
-      message: `Welcome back! ${user.firstName} ${user.lastName}`,
+      message: `Welcome back!`,
+      name: `${user.firstName} ${user.lastName}`,
     });
   } catch (error: any) {
     if (error.isJoi) {

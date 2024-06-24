@@ -26,8 +26,8 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "khushbu@test.com",
-    "password": "Khush@123"
+    "email": "test1@t.com",
+    "password": "Test@123"
 }
 
 ### 
@@ -47,15 +47,55 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8000/api/property/add-property
+POST  http://localhost:8000/api/property/add-property 
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNTM3NTIsImV4cCI6MTcxOTI1MzgwMiwiYXVkIjoiNjY3MjE2YWUyZGFmMzZiNzBjMjcyYTZlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.JTI3yD8638DgrhKRAyro4oAo4j6Gx4fY0Q2m0bYL5t4
 
 {
-    "shortDescription": "1bhk",
+    "address_line1": "123 Main St",
+    "city": "London",
+    "state": "London",
+    "country": "UK",
+    "postal_code": "12345",
+    "description": "A cozy 1BHK apartment.",
     "price": "143$",
-    "imageUrl": "https://www.google.com",
-    "location": "London"
+    "leaseLength": "12 months",
+    "deposit": "200$",
+    "imageUrl": ["https://picsum.photos/200/300",
+        "https://picsum.photos/200/300",
+        "https://picsum.photos/200/300"],
+    "location": "London",
+    "utilities": {
+        "electricity": true,
+        "water": true,
+        "gas": true,
+        "internet": true,
+        "cable": true,
+        "heat": true,
+        "airConditioning": true
+    },
+    "features": {
+        "parking": true,
+        "laundry": true,
+        "dishwasher": true,
+        "refrigerator": true,
+        "stove": true,
+        "microwave": true,
+        "garbageDisposal": true,
+        "fireplace": true,
+        "balcony": true,
+        "pool": true,
+        "hotTub": true,
+        "gym": true,
+        "elevator": true,
+        "furnished": true,
+        "wheelchairAccessible": true,
+        "petFriendly": true
+    },
+    "ownerDetails": "667216ae2daf36b70c272a6e",
+    "extraFeatures": "Close to public transport"
 }
+
 ###
 
 POST http://localhost:8000/api/auth/verify-security-answers
@@ -90,6 +130,5 @@ GET http://localhost:8000/api/property/get-properties
 
 
 ###
-GET http://localhost:8000/api/property/get-properties/6670bb4df983f39d38bae27b
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTg2NjU2MjcsImV4cCI6MTcxODY2NTY1NywiYXVkIjoiNjY3MGMxMjM1NGVmZjc5Yzk3ZGE5MDI0IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.ihHfEeA5Ky56w2K_to7UkbXwKbm7ysCPtOBDUzQR360
-
+GET http://localhost:8000/api/property/get-properties/6679ac94a2c798d13c8ee077
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNTM2NzEsImV4cCI6MTcxOTI1MzcyMSwiYXVkIjoiNjY3MjE2YWUyZGFmMzZiNzBjMjcyYTZlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.qGMo3HQ6SWdZPY2gVbJcUtP2EmDMqfKFBYm7TEfXiAY

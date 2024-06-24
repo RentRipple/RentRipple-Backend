@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
+import { predefinedQuestions } from "../Helpers/constants";
 import bcrypt from "bcryptjs";
 
 interface ISecurityQuestion {
@@ -14,18 +15,15 @@ interface IUser extends Document {
   securityQuestions: ISecurityQuestion[];
   gender: string;
   number: string;
+  rating: number;
+  contact: string;
+  profilePicture: string;
+  isDeleted: boolean;
+  createdAt: Date;
+  updatedAt: Date;
   checkPassword(password: string): Promise<boolean>;
   checkSecurityAnswer(question: string, answer: string): Promise<boolean>;
 }
-
-const predefinedQuestions = [
-  "What was your childhood nickname?",
-  "What is the name of your favorite childhood friend?",
-  "In what city or town did your mother and father meet?",
-  "What is your favorite team?",
-  "What is your favorite movie?",
-  "What was the name of your first pet?",
-];
 
 const SecurityQuestionSchema: Schema = new Schema({
   question: { type: String, required: true, enum: predefinedQuestions },
@@ -46,6 +44,12 @@ const UserSchema: Schema<IUser> = new Schema({
   },
   gender: { type: String, required: true },
   number: { type: String, required: true },
+  rating: { type: Number, default: 2 },
+  contact: { type: String, required: false, default: null },
+  profilePicture: { type: String, default: "" },
+  isDeleted: { type: Boolean, default: false },
+  createdAt: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
 });
 
 UserSchema.pre<IUser>("save", async function (next) {

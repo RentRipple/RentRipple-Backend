@@ -5,7 +5,11 @@ import { verifyAccessToken } from "../Helpers/generateJWTTokens";
 export const PropertyRoutes = express.Router();
 
 // AuthRoutes.post("/add-property", authController.addProperty);
-PropertyRoutes.post("/add-property", propertyController.addProperty);
+PropertyRoutes.post(
+  "/add-property",
+  verifyAccessToken,
+  propertyController.addProperty,
+);
 PropertyRoutes.get("/get-properties", propertyController.getProperties);
 PropertyRoutes.get(
   "/get-properties/:propId",

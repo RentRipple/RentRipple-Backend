@@ -85,9 +85,11 @@ Content-Type: application/json
 }
 
 
-<<<<<<< HEAD
-
-=======
 ###
 GET http://localhost:8000/api/property/get-properties
->>>>>>> b80de03400da069fa47ea4f79ac6fe60696840ce
+
+
+###
+GET http://localhost:8000/api/property/get-properties/6670bb4df983f39d38bae27b
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTg2NjU2MjcsImV4cCI6MTcxODY2NTY1NywiYXVkIjoiNjY3MGMxMjM1NGVmZjc5Yzk3ZGE5MDI0IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.ihHfEeA5Ky56w2K_to7UkbXwKbm7ysCPtOBDUzQR360
+

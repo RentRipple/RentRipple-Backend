@@ -50,3 +50,23 @@ export const getProperties = async (
     next(error);
   }
 };
+
+export const getPropertyDetailsById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    // Extract the property ID from the request parameters
+    const { propId } = req.params;
+
+    // Fetch all properties from the database
+    const propertyDetails = await Property.findById(propId);
+
+    // Return the properties as the response
+    res.status(200).json(propertyDetails);
+  } catch (error) {
+    // Pass the error to the error handling middleware
+    next(error);
+  }
+};

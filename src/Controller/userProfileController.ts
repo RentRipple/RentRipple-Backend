@@ -24,12 +24,13 @@ export const viewUserProfile = async (
   try {
     let accessToken: string | undefined = req.headers["authorization"];
     if (!accessToken) {
-      throw new BadRequest("Access token not provided");
+      throw new BadRequest("User not authenticated");
     }
     accessToken = accessToken.split(" ")[1];
     const userId = await getUserIdFromBase64(accessToken);
-    const userProfile = await User.findById(userId);
-
+    const userProfile = await User.findById(userId).select(
+      "-password -securityQuestions -_id -__v",
+    );
     if (!userProfile) {
       throw new NotFound("User profile not found");
     }
@@ -49,11 +50,17 @@ export const editUserProfile = async (
   next: NextFunction,
 ) => {
   try {
-    const userId = await getUserIdFromBase64(req.params.id);
+    let accessToken: string | undefined = req.headers["authorization"];
+    if (!accessToken) {
+      throw new BadRequest("User not authenticated");
+    }
+    accessToken = accessToken.split(" ")[1];
+    const userId = await getUserIdFromBase64(accessToken);
 
     const { firstName, lastName, email, gender, number } = req.body;
 
     const userProfile = await User.findById(userId);
+
     if (!userProfile) {
       throw new NotFound("User profile not found");
     }

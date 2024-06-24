@@ -10,7 +10,7 @@ UserProfileRoutes.get(
   userProfileController.viewUserProfile,
 );
 
-UserProfileRoutes.put(
+UserProfileRoutes.post(
   "/editUserProfile",
   verifyAccessToken,
   userProfileController.editUserProfile,

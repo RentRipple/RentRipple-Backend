@@ -87,4 +87,17 @@ Content-Type: application/json
 ###
 GET http://localhost:8000/api/user/viewUserProfile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNjYwODAsImV4cCI6MTcxOTI2NjEzMCwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.y9_xqwZuSm3Typ0hlRPE8B9dxzjRSWaO9JNs3_gYvmU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNjkyODIsImV4cCI6MTcxOTI2OTMzMiwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.gtQixowu7qBLky_0wAJzRM2sU9zSO7ucmcJRuJVOyfM
+
+###
+POST http://localhost:8000/api/user/editUserProfile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNjkyODIsImV4cCI6MTcxOTI2OTMzMiwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.gtQixowu7qBLky_0wAJzRM2sU9zSO7ucmcJRuJVOyfM
+
+{
+    "firstName": "User1",
+    "lastName": "Modi",
+    "gender": "Female",
+    "number": "1234567890"
+}
+ 

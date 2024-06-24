@@ -57,7 +57,7 @@ export const editUserProfile = async (
     accessToken = accessToken.split(" ")[1];
     const userId = await getUserIdFromBase64(accessToken);
 
-    const { firstName, lastName, email, gender, number } = req.body;
+    const { firstName, lastName, gender, number } = req.body;
 
     const userProfile = await User.findById(userId);
 
@@ -67,16 +67,22 @@ export const editUserProfile = async (
 
     userProfile.firstName = firstName || userProfile.firstName;
     userProfile.lastName = lastName || userProfile.lastName;
-    userProfile.email = email || userProfile.email;
     userProfile.gender = gender || userProfile.gender;
     userProfile.number = number || userProfile.number;
 
     await userProfile.save();
 
+    const userProfileResponse = {
+      firstName: userProfile.firstName,
+      lastName: userProfile.lastName,
+      gender: userProfile.gender,
+      number: userProfile.number,
+    };
+
     res.status(StatusCodes.OK).json({
       status: StatusCodes.OK,
       message: "User profile updated successfully",
-      userProfile,
+      userProfile: userProfileResponse,
     });
   } catch (error: any) {
     next(error);

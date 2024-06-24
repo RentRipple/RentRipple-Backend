@@ -26,8 +26,13 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
+<<<<<<< HEAD
     "email": "khushu@test.com",
     "password": "Khushbu@123"
+=======
+    "email": "test1@t.com",
+    "password": "Test@123"
+>>>>>>> 759420a162d00a0f1449ec6232261dbd2af364a0
 }
 
 ### 
@@ -47,15 +52,55 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8000/api/property/add-property
+POST  http://localhost:8000/api/property/add-property 
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNTM3NTIsImV4cCI6MTcxOTI1MzgwMiwiYXVkIjoiNjY3MjE2YWUyZGFmMzZiNzBjMjcyYTZlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.JTI3yD8638DgrhKRAyro4oAo4j6Gx4fY0Q2m0bYL5t4
 
 {
-    "shortDescription": "1bhk",
+    "address_line1": "123 Main St",
+    "city": "London",
+    "state": "London",
+    "country": "UK",
+    "postal_code": "12345",
+    "description": "A cozy 1BHK apartment.",
     "price": "143$",
-    "imageUrl": "https://www.google.com",
-    "location": "London"
+    "leaseLength": "12 months",
+    "deposit": "200$",
+    "imageUrl": ["https://picsum.photos/200/300",
+        "https://picsum.photos/200/300",
+        "https://picsum.photos/200/300"],
+    "location": "London",
+    "utilities": {
+        "electricity": true,
+        "water": true,
+        "gas": true,
+        "internet": true,
+        "cable": true,
+        "heat": true,
+        "airConditioning": true
+    },
+    "features": {
+        "parking": true,
+        "laundry": true,
+        "dishwasher": true,
+        "refrigerator": true,
+        "stove": true,
+        "microwave": true,
+        "garbageDisposal": true,
+        "fireplace": true,
+        "balcony": true,
+        "pool": true,
+        "hotTub": true,
+        "gym": true,
+        "elevator": true,
+        "furnished": true,
+        "wheelchairAccessible": true,
+        "petFriendly": true
+    },
+    "ownerDetails": "667216ae2daf36b70c272a6e",
+    "extraFeatures": "Close to public transport"
 }
+
 ###
 
 POST http://localhost:8000/api/auth/verify-security-answers

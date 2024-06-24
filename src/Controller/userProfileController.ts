@@ -29,7 +29,7 @@ export const viewUserProfile = async (
     accessToken = accessToken.split(" ")[1];
     const userId = await getUserIdFromBase64(accessToken);
     const userProfile = await User.findById(userId).select(
-      "-password -securityQuestions -_id -__v",
+      "-password -securityQuestions -_id -__v -isDeleted -createdAt -updatedAt",
     );
     if (!userProfile) {
       throw new NotFound("User profile not found");
@@ -57,7 +57,7 @@ export const editUserProfile = async (
     accessToken = accessToken.split(" ")[1];
     const userId = await getUserIdFromBase64(accessToken);
 
-    const { firstName, lastName, gender, number } = req.body;
+    const { firstName, lastName, gender, number, profilePicture } = req.body;
 
     const userProfile = await User.findById(userId);
 
@@ -69,6 +69,7 @@ export const editUserProfile = async (
     userProfile.lastName = lastName || userProfile.lastName;
     userProfile.gender = gender || userProfile.gender;
     userProfile.number = number || userProfile.number;
+    userProfile.profilePicture = profilePicture || userProfile.profilePicture;
 
     await userProfile.save();
 
@@ -77,6 +78,7 @@ export const editUserProfile = async (
       lastName: userProfile.lastName,
       gender: userProfile.gender,
       number: userProfile.number,
+      profilePicture: userProfile.profilePicture,
     };
 
     res.status(StatusCodes.OK).json({

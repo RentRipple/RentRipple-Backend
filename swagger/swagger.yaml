@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: "Authentication API"
-  description: "API endpoints for user authentication"
+  description: "API endpoints for user authentication and property management"
   version: "1.0.0"
 servers:
   - url: "http://localhost:8000"
@@ -48,9 +48,159 @@ components:
         number:
           type: string
           description: "User's phone number"
-        accountType:
+        rating:
+          type: number
+          description: "User's rating"
+          default: 2
+        contact:
           type: string
-          description: "User's account type"
+          description: "User's contact information"
+          nullable: true
+          default: null
+        profilePicture:
+          type: string
+          description: "URL to user's profile picture"
+          default: ""
+        isDeleted:
+          type: boolean
+          description: "Indicates if the user is deleted"
+          default: false
+        createdAt:
+          type: string
+          format: date-time
+          description: "Timestamp when the user was created"
+          default: "2024-06-24T17:05:40Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: "Timestamp when the user was last updated"
+          default: "2024-06-24T17:05:40Z"
+    Property:
+      type: object
+      properties:
+        address_line1:
+          type: string
+          description: "Primary address line"
+        address_line2:
+          type: string
+          description: "Secondary address line"
+        city:
+          type: string
+          description: "City"
+        state:
+          type: string
+          description: "State"
+        country:
+          type: string
+          description: "Country"
+        postal_code:
+          type: string
+          description: "Postal code"
+        description:
+          type: string
+          description: "Detailed description of the property"
+        shortDescription:
+          type: string
+          description: "Short description of the property"
+        price:
+          type: string
+          description: "Price of the property"
+        leaseLength:
+          type: string
+          description: "Length of the lease"
+        deposit:
+          type: string
+          description: "Deposit amount"
+        imageUrl:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: "Array of image URLs for the property"
+        location:
+          type: string
+          description: "General location of the property"
+        utilities:
+          type: object
+          properties:
+            electricity:
+              type: boolean
+              description: "Electricity availability"
+            water:
+              type: boolean
+              description: "Water availability"
+            gas:
+              type: boolean
+              description: "Gas availability"
+            internet:
+              type: boolean
+              description: "Internet availability"
+            cable:
+              type: boolean
+              description: "Cable TV availability"
+            heat:
+              type: boolean
+              description: "Heat availability"
+            airConditioning:
+              type: boolean
+              description: "Air conditioning availability"
+        features:
+          type: object
+          properties:
+            parking:
+              type: boolean
+              description: "Parking availability"
+            laundry:
+              type: boolean
+              description: "Laundry facilities availability"
+            dishwasher:
+              type: boolean
+              description: "Dishwasher availability"
+            refrigerator:
+              type: boolean
+              description: "Refrigerator availability"
+            stove:
+              type: boolean
+              description: "Stove availability"
+            microwave:
+              type: boolean
+              description: "Microwave availability"
+            garbageDisposal:
+              type: boolean
+              description: "Garbage disposal availability"
+            fireplace:
+              type: boolean
+              description: "Fireplace availability"
+            balcony:
+              type: boolean
+              description: "Balcony availability"
+            pool:
+              type: boolean
+              description: "Pool availability"
+            hotTub:
+              type: boolean
+              description: "Hot tub availability"
+            gym:
+              type: boolean
+              description: "Gym availability"
+            elevator:
+              type: boolean
+              description: "Elevator availability"
+            wheelchairAccessible:
+              type: boolean
+              description: "Wheelchair accessibility"
+            furnished:
+              type: boolean
+              description: "Furnishing availability"
+            petFriendly:
+              type: boolean
+              description: "Pet-friendliness"
+        ownerDetails:
+          type: string
+          description: "Owner details (User ObjectId)"
+        extraFeatures:
+          type: string
+          description: "Additional features or comments"
 paths:
   /api-docs:
     get:
@@ -215,3 +365,44 @@ paths:
           description: "Unauthorized access"
         "400":
           description: "New password cannot be the same as the old password"
+  /api/property/add-property:
+    post:
+      tags:
+        - "Property"
+      summary: "Adds a new property"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Property'
+      responses:
+        "201":
+          description: "Property added successfully"
+        "400":
+          description: "Bad request - Missing or invalid parameters"
+  /api/property/get-properties:
+    get:
+      tags:
+        - "Property"
+      summary: "Get all properties"
+      responses:
+        "200":
+          description: "Properties retrieved successfully"
+  /api/property/get-property/{propertyId}:
+    get:
+      tags:
+        - "Property"
+      summary: "Get a property by ID"
+      parameters:
+        - name: "propertyId"
+          in: "path"
+          required: true
+          description: "Property ID"
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Property retrieved successfully"
+        "404":
+          description: "Property not found"

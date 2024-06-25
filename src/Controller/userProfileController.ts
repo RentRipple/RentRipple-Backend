@@ -29,7 +29,7 @@ export const viewUserProfile = async (
     accessToken = accessToken.split(" ")[1];
     const userId = await getUserIdFromBase64(accessToken);
     const userProfile = await User.findById(userId).select(
-      "-password -securityQuestions -_id -__v -isDeleted -createdAt -updatedAt",
+      "-password -securityQuestions -contact -_id -__v -isDeleted -createdAt -updatedAt",
     );
     if (!userProfile) {
       throw new NotFound("User profile not found");

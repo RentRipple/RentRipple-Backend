@@ -7,11 +7,11 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-    "firstName": "Khushbu",
-    "lastName": "Modi",
-    "email": "khushu@test.com",
-    "password": "Khushbu@123",
-    "confirmPassword": "Khushbu@123",
+    "firstName": "Test1",
+    "lastName": "test",
+    "email": "test@test.com",
+    "password": "Testtest@123",
+    "confirmPassword": "Testtest@123",
     "gender": "Female",
     "number": "1234567890",
     "securityQuestions": [
@@ -26,13 +26,8 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
-<<<<<<< HEAD
-    "email": "khushu@test.com",
-    "password": "Khushbu@123"
-=======
-    "email": "test1@t.com",
-    "password": "Test@123"
->>>>>>> 759420a162d00a0f1449ec6232261dbd2af364a0
+    "email": "test1@test.com",
+    "password": "Testtest@123"
 }
 
 ### 
@@ -132,17 +127,18 @@ Content-Type: application/json
 ###
 GET http://localhost:8000/api/user/viewUserProfile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNjkyODIsImV4cCI6MTcxOTI2OTMzMiwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.gtQixowu7qBLky_0wAJzRM2sU9zSO7ucmcJRuJVOyfM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzAzODAsImV4cCI6MTcxOTMzMDQ0MCwiYXVkIjoiNjY3OWZmNjg4NDdhY2I5MjNkYWMxNDRiIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.nObOPgzsdK2tsmqH4_dqYrtAg5OF_c6JqBoeWKOpOI0
 
 ###
 POST http://localhost:8000/api/user/editUserProfile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNjkyODIsImV4cCI6MTcxOTI2OTMzMiwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.gtQixowu7qBLky_0wAJzRM2sU9zSO7ucmcJRuJVOyfM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzAzMDcsImV4cCI6MTcxOTMzMDM2NywiYXVkIjoiNjY3OWZmNjg4NDdhY2I5MjNkYWMxNDRiIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.3t6ifpe9sU4QpWfplEfNCaAJsUOjxM1nai2do64_rsQ
 
 {
-    "firstName": "User1",
-    "lastName": "Modi",
+    "firstName": "user1",
+    "lastName": "userSurname1",
     "gender": "Female",
-    "number": "1234567890"
+    "number": "0987654321",
+    "profilePicture": ""
 }
  

@@ -16,11 +16,14 @@ interface IUser extends Document {
   gender: string;
   number: string;
   rating: number;
-  contact: string;
   profilePicture: string;
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
+  address: string;
+  birthDate: Date;
+  rentalProperties: string[];
+  rentalHistory: string[];
   checkPassword(password: string): Promise<boolean>;
   checkSecurityAnswer(question: string, answer: string): Promise<boolean>;
 }
@@ -45,11 +48,14 @@ const UserSchema: Schema<IUser> = new Schema({
   gender: { type: String, required: true },
   number: { type: String, required: true },
   rating: { type: Number, default: 2 },
-  contact: { type: String, required: false, default: null },
   profilePicture: { type: String, default: "" },
   isDeleted: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
+  address: { type: String, default: "" },
+  birthDate: { type: Date, default: Date.now },
+  rentalProperties: { type: [String], default: [] },
+  rentalHistory: { type: [String], default: [] },
 });
 
 UserSchema.pre<IUser>("save", async function (next) {

@@ -26,8 +26,8 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "test1@t.com",
-    "password": "Test@123"
+    "email": "khushu@test.com",
+    "password": "Khushbu@123"
 }
 
 ### 
@@ -49,7 +49,7 @@ Content-Type: application/json
 ###
 POST  http://localhost:8000/api/property/add-property 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNTM3NTIsImV4cCI6MTcxOTI1MzgwMiwiYXVkIjoiNjY3MjE2YWUyZGFmMzZiNzBjMjcyYTZlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.JTI3yD8638DgrhKRAyro4oAo4j6Gx4fY0Q2m0bYL5t4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzg5OTQsImV4cCI6MTcxOTMzOTA1NCwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.vSR0SDFyEbmF1p49QChEIVqNkXcduGJpygamRcQGV_M
 
 {
     "address_line1": "123 Main St",
@@ -92,7 +92,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNTM3N
         "wheelchairAccessible": true,
         "petFriendly": true
     },
-    "ownerDetails": "667216ae2daf36b70c272a6e",
+    "ownerDetails": "66761320772aaa7a3e0fb30e",
     "extraFeatures": "Close to public transport"
 }
 
@@ -130,5 +130,25 @@ GET http://localhost:8000/api/property/get-properties
 
 
 ###
-GET http://localhost:8000/api/property/get-properties/6679ac94a2c798d13c8ee077
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNTM2NzEsImV4cCI6MTcxOTI1MzcyMSwiYXVkIjoiNjY3MjE2YWUyZGFmMzZiNzBjMjcyYTZlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.qGMo3HQ6SWdZPY2gVbJcUtP2EmDMqfKFBYm7TEfXiAY
+GET http://localhost:8000/api/property/get-properties/667b082d532ae95d53f92844
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzkxMTMsImV4cCI6MTcxOTMzOTE3MywiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ._vY83-SqqeWw7MQOXbUt-zPJwvRsvdbXGZYhcolsc3w
+
+###
+GET http://localhost:8000/api/user/viewUserProfile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzNDgyMTYsImV4cCI6MTcxOTM0ODI3NiwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.wZ2Ezo3Vg4UT-sLUnFCTQlCaKH4O3IeIIS9Uoi3L_ho
+
+###
+POST http://localhost:8000/api/user/editUserProfile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzNDgxMDUsImV4cCI6MTcxOTM0ODE2NSwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.8mQg-rNR5K6zVVybq9TJ9ryUJHZANeBLKdCwAwi7H4I
+
+{
+    "firstName": "Khushbu",
+    "lastName": "Modi",
+    "gender": "Female",
+    "number": "1234567890",
+    "address": "123 Main St, London, UK",
+    "profilePicture" : "https://picsum.photos/200/300",
+    "birthDate": "1995-01-01"
+}
+    

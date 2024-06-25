@@ -406,3 +406,39 @@ paths:
           description: "Property retrieved successfully"
         "404":
           description: "Property not found"
+  /api/user/viewUserProfile:
+    get:
+      tags:
+        - "User"
+      summary: "View user profile"
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: "User profile retrieved successfully"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        "401":
+          description: "Unauthorized - Invalid or expired token"
+  /api/user/editUserProfile:
+    post:
+      tags:
+        - "User"
+      summary: "Edit user profile"
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: "User profile updated successfully"
+        "400":
+          description: "Bad request - Missing or invalid parameters"
+        "401":
+          description: "Unauthorized - Invalid or expired token"

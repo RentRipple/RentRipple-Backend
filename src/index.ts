@@ -9,6 +9,7 @@ import swaggerUi from "swagger-ui-express";
 import cors from "cors";
 import errorHandler from "./Helpers/errorHandler";
 import { verifyAccessToken } from "./Helpers/generateJWTTokens";
+import { UserProfileRoutes } from "./Routes/userProfile.routes";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use("/api/auth", AuthRoutes);
 app.use("/api/property", PropertyRoutes);
+app.use("/api/user", UserProfileRoutes);
 
 // 404 Error Handler
 app.use((req: Request, res: Response, next: NextFunction) => {

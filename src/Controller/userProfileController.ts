@@ -57,7 +57,15 @@ export const editUserProfile = async (
     accessToken = accessToken.split(" ")[1];
     const userId = await getUserIdFromBase64(accessToken);
 
-    const { firstName, lastName, gender, number, profilePicture } = req.body;
+    const {
+      firstName,
+      lastName,
+      gender,
+      number,
+      address,
+      birthDate,
+      profilePicture,
+    } = req.body;
 
     const userProfile = await User.findById(userId);
 
@@ -70,6 +78,8 @@ export const editUserProfile = async (
     userProfile.gender = gender || userProfile.gender;
     userProfile.number = number || userProfile.number;
     userProfile.profilePicture = profilePicture || userProfile.profilePicture;
+    userProfile.address = address || userProfile.address;
+    userProfile.birthDate = birthDate || userProfile.birthDate;
 
     await userProfile.save();
 
@@ -79,6 +89,8 @@ export const editUserProfile = async (
       gender: userProfile.gender,
       number: userProfile.number,
       profilePicture: userProfile.profilePicture,
+      address: userProfile.address,
+      birthDate: userProfile.birthDate,
     };
 
     res.status(StatusCodes.OK).json({

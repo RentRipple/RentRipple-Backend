@@ -63,7 +63,7 @@ export const getProperties = async (
         location: property.location,
         price: property.price,
         imageUrl: property.imageUrl,
-        shortDescription: property.description.slice(0, 40),
+        shortDescription: property.description,
       });
     }
 

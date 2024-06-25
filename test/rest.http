@@ -7,11 +7,11 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-    "firstName": "Test1",
-    "lastName": "test",
-    "email": "test@test.com",
-    "password": "Testtest@123",
-    "confirmPassword": "Testtest@123",
+    "firstName": "Khushbu",
+    "lastName": "Modi",
+    "email": "khushu@test.com",
+    "password": "Khushbu@123",
+    "confirmPassword": "Khushbu@123",
     "gender": "Female",
     "number": "1234567890",
     "securityQuestions": [
@@ -26,8 +26,8 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "test1@test.com",
-    "password": "Testtest@123"
+    "email": "khushu@test.com",
+    "password": "Khushbu@123"
 }
 
 ### 
@@ -43,13 +43,13 @@ POST http://localhost:8000/api/auth/forgot-password
 Content-Type: application/json
 
 {
-    "email": "khushu@test.com"
+    "email": "khush@test.com"
 }
 
 ###
 POST  http://localhost:8000/api/property/add-property 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNTM3NTIsImV4cCI6MTcxOTI1MzgwMiwiYXVkIjoiNjY3MjE2YWUyZGFmMzZiNzBjMjcyYTZlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.JTI3yD8638DgrhKRAyro4oAo4j6Gx4fY0Q2m0bYL5t4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzg5OTQsImV4cCI6MTcxOTMzOTA1NCwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.vSR0SDFyEbmF1p49QChEIVqNkXcduGJpygamRcQGV_M
 
 {
     "address_line1": "123 Main St",
@@ -92,7 +92,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkyNTM3N
         "wheelchairAccessible": true,
         "petFriendly": true
     },
-    "ownerDetails": "667216ae2daf36b70c272a6e",
+    "ownerDetails": "66761320772aaa7a3e0fb30e",
     "extraFeatures": "Close to public transport"
 }
 
@@ -124,21 +124,31 @@ Content-Type: application/json
     "refreshToken" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTgzNzExMjcsImV4cCI6MTc0OTkyODcyNywiYXVkIjoiNjY2OGZjYjg0YzAxNzA0Nzc2ODBhNTE5IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.O0c-7TYb8j8mEDafXN8YjkF4qpX-hliEXd54Xu0aojY"
 }
 
+
+###
+GET http://localhost:8000/api/property/get-properties
+
+
+###
+GET http://localhost:8000/api/property/get-properties/667b082d532ae95d53f92844
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzkxMTMsImV4cCI6MTcxOTMzOTE3MywiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ._vY83-SqqeWw7MQOXbUt-zPJwvRsvdbXGZYhcolsc3w
+
 ###
 GET http://localhost:8000/api/user/viewUserProfile
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzAzODAsImV4cCI6MTcxOTMzMDQ0MCwiYXVkIjoiNjY3OWZmNjg4NDdhY2I5MjNkYWMxNDRiIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.nObOPgzsdK2tsmqH4_dqYrtAg5OF_c6JqBoeWKOpOI0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzNDgyMTYsImV4cCI6MTcxOTM0ODI3NiwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.wZ2Ezo3Vg4UT-sLUnFCTQlCaKH4O3IeIIS9Uoi3L_ho
 
 ###
 POST http://localhost:8000/api/user/editUserProfile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzAzMDcsImV4cCI6MTcxOTMzMDM2NywiYXVkIjoiNjY3OWZmNjg4NDdhY2I5MjNkYWMxNDRiIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.3t6ifpe9sU4QpWfplEfNCaAJsUOjxM1nai2do64_rsQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzNDgxMDUsImV4cCI6MTcxOTM0ODE2NSwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.8mQg-rNR5K6zVVybq9TJ9ryUJHZANeBLKdCwAwi7H4I
 
 {
-    "firstName": "user1",
-    "lastName": "userSurname1",
+    "firstName": "Khushbu",
+    "lastName": "Modi",
     "gender": "Female",
-    "number": "0987654321",
-    "profilePicture": ""
+    "number": "1234567890",
+    "address": "123 Main St, London, UK",
+    "profilePicture" : "https://picsum.photos/200/300",
+    "birthDate": "1995-01-01"
 }
- 
+    

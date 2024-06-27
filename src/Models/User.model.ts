@@ -7,6 +7,12 @@ interface ISecurityQuestion {
   answer: string;
 }
 
+interface Location {
+  address_line1: string;
+  city: string;
+  country: string;
+}
+
 interface IUser extends Document {
   firstName: string;
   lastName: string;
@@ -22,8 +28,9 @@ interface IUser extends Document {
   updatedAt: Date;
   address: string;
   birthDate: Date;
-  rentalProperties: string[];
-  rentalHistory: string[];
+  propertyDetails: mongoose.Schema.Types.ObjectId;
+  rentalHistory: Location[];
+  preferredLocation: Location[];
   checkPassword(password: string): Promise<boolean>;
   checkSecurityAnswer(question: string, answer: string): Promise<boolean>;
 }
@@ -31,6 +38,12 @@ interface IUser extends Document {
 const SecurityQuestionSchema: Schema = new Schema({
   question: { type: String, required: true, enum: predefinedQuestions },
   answer: { type: String, required: true },
+});
+
+const LocationSchema: Schema = new Schema({
+  address_line1: { type: String, required: true, default: "Default Address" },
+  city: { type: String, required: true, default: "Default City" },
+  country: { type: String, required: true, default: "Default Country" },
 });
 
 const UserSchema: Schema<IUser> = new Schema({
@@ -54,8 +67,30 @@ const UserSchema: Schema<IUser> = new Schema({
   updatedAt: { type: Date, default: Date.now },
   address: { type: String, default: "" },
   birthDate: { type: Date, default: Date.now },
-  rentalProperties: { type: [String], default: [] },
-  rentalHistory: { type: [String], default: [] },
+  propertyDetails: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Property",
+  },
+  rentalHistory: {
+    type: [LocationSchema],
+    default: [
+      {
+        address_line1: "300 Ouellette",
+        city: "Windsor",
+        country: "Canada",
+      },
+    ],
+  },
+  preferredLocation: {
+    type: [LocationSchema],
+    default: [
+      {
+        address_line1: "Sunset Avenue",
+        city: "Windsor",
+        country: "Canada",
+      },
+    ],
+  },
 });
 
 UserSchema.pre<IUser>("save", async function (next) {

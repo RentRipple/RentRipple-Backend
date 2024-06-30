@@ -70,6 +70,7 @@ export const editUserProfile = async (
       address,
       birthDate,
       profilePicture,
+      preferredLocation,
     } = req.body;
 
     const userProfile = await User.findById(userId);
@@ -85,6 +86,8 @@ export const editUserProfile = async (
     userProfile.profilePicture = profilePicture || userProfile.profilePicture;
     userProfile.address = address || userProfile.address;
     userProfile.birthDate = birthDate || userProfile.birthDate;
+    userProfile.preferredLocation =
+      preferredLocation || userProfile.preferredLocation;
 
     await userProfile.save();
 
@@ -96,6 +99,7 @@ export const editUserProfile = async (
       profilePicture: userProfile.profilePicture,
       address: userProfile.address,
       birthDate: userProfile.birthDate,
+      preferredLocation: userProfile.preferredLocation,
     };
 
     res.status(StatusCodes.OK).json({

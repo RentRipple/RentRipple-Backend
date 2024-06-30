@@ -9,9 +9,9 @@ Content-Type: application/json
 {
     "firstName": "User1",
     "lastName": "user1",
-    "email": "user1@test.com",
-    "password": "user1@123",
-    "confirmPassword": "user1@123",
+    "email": "User1@test.com",
+    "password": "User1@123",
+    "confirmPassword": "User1@123",
     "gender": "Female",
     "number": "1234567890",
     "securityQuestions": [
@@ -27,7 +27,7 @@ Content-Type: application/json
 
 {
     "email": "user1@test.com",
-    "password": "user1@123"
+    "password": "User1@123"
 }
 
 ### 
@@ -49,10 +49,10 @@ Content-Type: application/json
 ###
 POST  http://localhost:8000/api/property/add-property 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk0OTkxNzEsImV4cCI6MTcxOTQ5OTc3MSwiYXVkIjoiNjY3Y2ExY2Y1ZTBmZGVlYzhmOTIyNzY2IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.JAeE6Vq5V9vcwnQL20sC4DAJ_vZoBgmr-ZBnlVhv50A
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk3OTAxNDksImV4cCI6MTcxOTc5MDc0OSwiYXVkIjoiNjY4MWVhM2Q1MDFiNTY5MzVjMzA2NWU0IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.f3N5MFXz8m7R51elgBBaECLDsBpQ9YLnuUYWX6UsbfY
 
 {
-    "address_line1": "123 Main St",
+    "address_line1": "New Property",
     "city": "London",
     "state": "London",
     "country": "UK",
@@ -92,7 +92,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk0OTkxN
         "wheelchairAccessible": true,
         "petFriendly": true
     },
-    "ownerDetails": "667ca1cf5e0fdeec8f922766",
+    "ownerDetails": "6681ea3d501b56935c3065e4",
     "extraFeatures": "Close to public transport"
 }
 
@@ -136,13 +136,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk0NDM5M
 
 ###
 GET http://localhost:8000/api/user/viewUserProfile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk0OTk3NTksImV4cCI6MTcxOTUwMDM1OSwiYXVkIjoiNjY3Y2ExY2Y1ZTBmZGVlYzhmOTIyNzY2IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.EWkMsiKh7o8ZcC_dRgQkcGZkDeU_k4kUn5imeNelqIk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk3OTA1NDIsImV4cCI6MTcxOTc5MTE0MiwiYXVkIjoiNjY4MWVhM2Q1MDFiNTY5MzVjMzA2NWU0IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.5KOSnUv2h19GY-7fi7ZQrKmrbbbxfZEPQPtY1hpHsJA
 
 
 ###
 POST http://localhost:8000/api/user/editUserProfile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzNDgxMDUsImV4cCI6MTcxOTM0ODE2NSwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.8mQg-rNR5K6zVVybq9TJ9ryUJHZANeBLKdCwAwi7H4I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk3OTA1NDIsImV4cCI6MTcxOTc5MTE0MiwiYXVkIjoiNjY4MWVhM2Q1MDFiNTY5MzVjMzA2NWU0IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.5KOSnUv2h19GY-7fi7ZQrKmrbbbxfZEPQPtY1hpHsJA
 
 {
     "firstName": "NewUser1",

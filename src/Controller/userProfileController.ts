@@ -22,7 +22,7 @@ export const viewUserProfile = async (
 
     const properties = await Property.find({ ownerDetails: userId });
 
-    const response = {
+    const userProfileResponse = {
       UserDetails: {
         firstName: userProfile.firstName,
         lastName: userProfile.lastName,
@@ -47,7 +47,11 @@ export const viewUserProfile = async (
       })),
     };
 
-    res.status(StatusCodes.OK).json(response);
+    res.status(StatusCodes.OK).json({
+      status: StatusCodes.OK,
+      message: "User profile view",
+      userProfile: userProfileResponse,
+    });
   } catch (error: any) {
     next(error);
   }

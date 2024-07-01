@@ -1,20 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { User } from "../Models/User.model";
-import { BadRequest, NotFound } from "http-errors";
+import { NotFound } from "http-errors";
 import { StatusCodes } from "http-status-codes";
-import { base64Decoder } from "../Helpers/base64Decoder";
-
-const getUserIdFromBase64 = async (base64String: string): Promise<string> => {
-  try {
-    const userId = await base64Decoder(base64String);
-    if (!userId) {
-      throw new BadRequest("Invalid base64 string provided");
-    }
-    return userId;
-  } catch (error) {
-    throw new BadRequest("Invalid base64 string provided");
-  }
-};
+import { getUserIdFromBase64 } from "../Helpers/base64Decoder";
+import { Property } from "../Models/Property.model";
+import { extractAccessToken } from "../Helpers/extractAccessToken";
 
 export const viewUserProfile = async (
   req: Request,
@@ -22,22 +12,45 @@ export const viewUserProfile = async (
   next: NextFunction,
 ) => {
   try {
-    let accessToken: string | undefined = req.headers["authorization"];
-    if (!accessToken) {
-      throw new BadRequest("User not authenticated");
-    }
-    accessToken = accessToken.split(" ")[1];
+    const accessToken = extractAccessToken(req);
     const userId = await getUserIdFromBase64(accessToken);
-    const userProfile = await User.findById(userId).select(
-      "-password -securityQuestions -contact -_id -__v -isDeleted -createdAt -updatedAt",
-    );
+    const userProfile = await User.findById(userId);
+
     if (!userProfile) {
       throw new NotFound("User profile not found");
     }
 
+    const properties = await Property.find({ ownerDetails: userId });
+
+    const userProfileResponse = {
+      UserDetails: {
+        firstName: userProfile.firstName,
+        lastName: userProfile.lastName,
+        email: userProfile.email,
+        gender: userProfile.gender,
+        number: userProfile.number,
+        rating: userProfile.rating,
+        profilePicture: userProfile.profilePicture,
+        address: userProfile.address,
+        birthDate: userProfile.birthDate,
+        rentalHistory: userProfile.rentalHistory,
+        preferredLocation: userProfile.preferredLocation,
+      },
+      propertyDetails: properties.map((property) => ({
+        id: property._id,
+        address_line1: property.address_line1,
+        address_line2: property.address_line2,
+        city: property.city,
+        state: property.state,
+        country: property.country,
+        postal_code: property.postal_code,
+      })),
+    };
+
     res.status(StatusCodes.OK).json({
       status: StatusCodes.OK,
-      userProfile,
+      message: "User profile view",
+      userProfile: userProfileResponse,
     });
   } catch (error: any) {
     next(error);
@@ -50,11 +63,7 @@ export const editUserProfile = async (
   next: NextFunction,
 ) => {
   try {
-    let accessToken: string | undefined = req.headers["authorization"];
-    if (!accessToken) {
-      throw new BadRequest("User not authenticated");
-    }
-    accessToken = accessToken.split(" ")[1];
+    const accessToken = extractAccessToken(req);
     const userId = await getUserIdFromBase64(accessToken);
 
     const {
@@ -65,6 +74,7 @@ export const editUserProfile = async (
       address,
       birthDate,
       profilePicture,
+      preferredLocation,
     } = req.body;
 
     const userProfile = await User.findById(userId);
@@ -80,6 +90,8 @@ export const editUserProfile = async (
     userProfile.profilePicture = profilePicture || userProfile.profilePicture;
     userProfile.address = address || userProfile.address;
     userProfile.birthDate = birthDate || userProfile.birthDate;
+    userProfile.preferredLocation =
+      preferredLocation || userProfile.preferredLocation;
 
     await userProfile.save();
 
@@ -91,6 +103,7 @@ export const editUserProfile = async (
       profilePicture: userProfile.profilePicture,
       address: userProfile.address,
       birthDate: userProfile.birthDate,
+      preferredLocation: userProfile.preferredLocation,
     };
 
     res.status(StatusCodes.OK).json({

@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { predefinedQuestions } from "../Helpers/constants";
 import bcrypt from "bcryptjs";
+import moment from "moment";
 
 interface ISecurityQuestion {
   question: string;
@@ -27,7 +28,7 @@ interface IUser extends Document {
   createdAt: Date;
   updatedAt: Date;
   address: string;
-  birthDate: Date;
+  birthDate: string; // Change to string to store formatted date
   propertyDetails: mongoose.Schema.Types.ObjectId;
   rentalHistory: Location[];
   preferredLocation: Location[];
@@ -66,7 +67,11 @@ const UserSchema: Schema<IUser> = new Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   address: { type: String, default: "" },
-  birthDate: { type: Date, default: Date.now },
+  birthDate: {
+    type: String,
+    default: () => moment().format("YYYY-MM-DD"),
+    set: (value: Date) => moment(value).format("YYYY-MM-DD"),
+  },
   propertyDetails: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Property",

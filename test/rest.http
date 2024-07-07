@@ -7,9 +7,9 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-    "firstName": "User1",
+    "firstName": "User11",
     "lastName": "user1",
-    "email": "User1@test.com",
+    "email": "User11@test.com",
     "password": "User1@123",
     "confirmPassword": "User1@123",
     "gender": "Female",

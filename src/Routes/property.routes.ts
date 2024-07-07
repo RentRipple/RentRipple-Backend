@@ -1,16 +1,25 @@
 import * as express from "express";
 import * as propertyController from "../Controller/propertyController";
 import { verifyAccessToken } from "../Helpers/generateJWTTokens";
+import upload from "../Helpers/multerConfig";
 
 export const PropertyRoutes = express.Router();
 
-// AuthRoutes.post("/add-property", authController.addProperty);
 PropertyRoutes.post(
   "/add-property",
   verifyAccessToken,
-  propertyController.addProperty,
+  propertyController.addPropertyJson,
 );
+
+PropertyRoutes.post(
+  "/add-property-images/:propId",
+  verifyAccessToken,
+  upload.array("images", 10),
+  propertyController.addPropertyImages,
+);
+
 PropertyRoutes.get("/get-properties", propertyController.getProperties);
+
 PropertyRoutes.get(
   "/get-properties/:propId",
   verifyAccessToken,

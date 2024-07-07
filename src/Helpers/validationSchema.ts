@@ -50,8 +50,8 @@ export const propertySchema = Joi.object({
   price: Joi.string().required(),
   leaseLength: Joi.string().optional(),
   deposit: Joi.string().optional(),
-  imageUrl: Joi.array().items(Joi.string().uri()).required(),
   location: Joi.string().required(),
+  imageUrl: Joi.array().items(Joi.string()).optional(),
   utilities: Joi.object({
     electricity: Joi.boolean().required(),
     water: Joi.boolean().required(),
@@ -79,6 +79,5 @@ export const propertySchema = Joi.object({
     wheelchairAccessible: Joi.boolean().required(),
     petFriendly: Joi.boolean().required(),
   }).required(),
-  ownerDetails: Joi.string().required(),
   extraFeatures: Joi.string().optional(),
 });

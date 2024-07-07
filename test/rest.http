@@ -49,7 +49,7 @@ Content-Type: application/json
 ###
 POST  http://localhost:8000/api/property/add-property 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk3OTAxNDksImV4cCI6MTcxOTc5MDc0OSwiYXVkIjoiNjY4MWVhM2Q1MDFiNTY5MzVjMzA2NWU0IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.f3N5MFXz8m7R51elgBBaECLDsBpQ9YLnuUYWX6UsbfY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAwMjk2NTAsImV4cCI6MTcyMDAzMDI1MCwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.meVLP-TGWaaLDYdhO3rtpNFJegh1AknMeXzY1hZ2BDA
 
 {
     "address_line1": "New Property",
@@ -61,9 +61,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk3OTAxN
     "price": "143$",
     "leaseLength": "12 months",
     "deposit": "200$",
-    "imageUrl": ["https://picsum.photos/200/300",
-        "https://picsum.photos/200/300",
-        "https://picsum.photos/200/300"],
     "location": "London",
     "utilities": {
         "electricity": true,
@@ -92,9 +89,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk3OTAxN
         "wheelchairAccessible": true,
         "petFriendly": true
     },
-    "ownerDetails": "6681ea3d501b56935c3065e4",
     "extraFeatures": "Close to public transport"
 }
+
 
 ###
 
@@ -153,3 +150,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk3OTMxN
     "birthDate": "1995-01-01"
 }
     
+
+
+curl -X POST http://localhost:8000/api/property/add-property-images \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAwMjk2NTAsImV4cCI6MTcyMDAzMDI1MCwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.meVLP-TGWaaLDYdhO3rtpNFJegh1AknMeXzY1hZ2BDA" \
+  -F "propertyId=667b082d532ae95d53f92844" \
+  -F "images=@~/Desktop/Screenshot 2024-06-28 at 2.42.14 PM.png"

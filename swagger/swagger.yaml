@@ -8,9 +8,9 @@ servers:
 components:
   securitySchemes:
     bearerAuth:
-      type: "http"
-      scheme: "bearer"
-      bearerFormat: "JWT"
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     SecurityQuestion:
       type: object
@@ -201,6 +201,8 @@ components:
         extraFeatures:
           type: string
           description: "Additional features or comments"
+security:
+  - bearerAuth: []
 paths:
   /api-docs:
     get:
@@ -367,20 +369,58 @@ paths:
           description: "New password cannot be the same as the old password"
   /api/property/add-property:
     post:
-      tags:
-        - "Property"
-      summary: "Adds a new property"
+      summary: Add a new property
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Property'
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    description: The property ID
+                  address_line1:
+                    type: string
+                    description: Address line 1
+                  city:
+                    type: string
+                    description: City
+                  state:
+                    type: string
+                    description: State
+                  country:
+                    type: string
+                    description: Country
+                  postal_code:
+                    type: string
+                    description: Postal code
+                  description:
+                    type: string
+                    description: Description of the property
+                  price:
+                    type: string
+                    description: Price of the property
+                  location:
+                    type: string
+                    description: Location coordinates
+                  imageUrl:
+                    type: array
+                    items:
+                      type: string
+                    description: List of image URLs
+                  ownerDetails:
+                    type: string
+                    description: Owner details
       responses:
-        "201":
-          description: "Property added successfully"
         "400":
-          description: "Bad request - Missing or invalid parameters"
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "422":
+          description: Validation Error
   /api/property/get-properties:
     get:
       tags:

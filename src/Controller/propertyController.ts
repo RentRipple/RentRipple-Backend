@@ -3,34 +3,82 @@ import { BadRequest } from "http-errors";
 import { Property } from "../Models/Property.model";
 import { propertySchema } from "../Helpers/validationSchema";
 import { User } from "../Models/User.model";
+import { extractAccessToken } from "../Helpers/extractAccessToken";
+import { getUserIdFromBase64 } from "../Helpers/base64Decoder";
+import { StatusCodes } from "http-status-codes";
+import { NotFound } from "http-errors";
+import * as path from "path";
 
-export const addProperty = async (
+// Controller function to handle JSON formatted data
+export const addPropertyJson = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    // Validate the request body
-    console.log(req.body);
+    const accessToken = extractAccessToken(req);
+    const userId = await getUserIdFromBase64(accessToken);
+    const userProfile = await User.findById(userId);
+    if (!userProfile) {
+      throw new Error("User not found");
+    }
+
     const { error, value } = propertySchema.validate(req.body);
     if (error) {
       throw BadRequest(error.message);
     }
 
-    // Create a new Property instance
-    const property = new Property(value);
+    const property = new Property({
+      ...value,
+      ownerDetails: userId,
+    });
 
-    // Save the property to the database
     const savedProperty = await property.save();
 
-    // Return the saved property as the response
-    res.status(201).json(savedProperty);
+    return res.status(StatusCodes.OK).json(savedProperty);
   } catch (error: any) {
-    // If the error is a Joi validation error, set status to 422 Unprocessable Entity
     if (error.isJoi) {
       error.status = 422;
     }
-    // Pass the error to the error handling middleware
+
+    next(error);
+  }
+};
+
+export const addPropertyImages = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const files = req.files as Express.Multer.File[];
+    if (!files) {
+      return res.status(400).json({ message: "No files uploaded" });
+    }
+    const propertyId = req.params.propId;
+
+    const property = await Property.findById(propertyId);
+    if (!property) {
+      throw NotFound("Property not found");
+    }
+
+    const projectBasePath = path.resolve(__dirname, "../../");
+    const imageUrls: string[] = files.map(
+      (image: any) => `${projectBasePath}/${image.path}`,
+    );
+
+    const updatedProperty = await Property.findByIdAndUpdate(
+      propertyId,
+      { imageUrl: imageUrls },
+      { new: true },
+    );
+
+    if (!updatedProperty) {
+      throw new Error("Could not update property with images");
+    }
+
+    res.json(updatedProperty);
+  } catch (error: any) {
     next(error);
   }
 };

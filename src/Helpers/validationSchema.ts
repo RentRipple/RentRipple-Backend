@@ -51,6 +51,7 @@ export const propertySchema = Joi.object({
   leaseLength: Joi.string().optional(),
   deposit: Joi.string().optional(),
   location: Joi.string().required(),
+  imageUrl: Joi.array().items(Joi.string()).optional(),
   utilities: Joi.object({
     electricity: Joi.boolean().required(),
     water: Joi.boolean().required(),

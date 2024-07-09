@@ -7,7 +7,6 @@ import { extractAccessToken } from "../Helpers/extractAccessToken";
 import { getUserIdFromBase64 } from "../Helpers/base64Decoder";
 import { StatusCodes } from "http-status-codes";
 import { NotFound } from "http-errors";
-import * as path from "path";
 
 // Controller function to handle JSON formatted data
 export const addPropertyJson = async (
@@ -62,10 +61,7 @@ export const addPropertyImages = async (
       throw NotFound("Property not found");
     }
 
-    const projectBasePath = path.resolve(__dirname, "../../");
-    const imageUrls: string[] = files.map(
-      (image: any) => `${projectBasePath}/${image.path}`,
-    );
+    const imageUrls: string[] = files.map((image: any) => image.filename);
 
     const updatedProperty = await Property.findByIdAndUpdate(
       propertyId,

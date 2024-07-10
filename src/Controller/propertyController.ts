@@ -91,28 +91,10 @@ export const getProperties = async (
     // Fetch all properties from the database
     const properties = await Property.find();
     const propertyCount = await Property.countDocuments();
-    const response: {
-      properties: {
-        id: string;
-        location: string;
-        price: string;
-        shortDescription: string;
-        imageUrl: string[];
-      }[];
-      count: number;
-    } = {
-      properties: [],
+    const response = {
+      properties: properties,
       count: propertyCount,
     };
-    for (const property of properties) {
-      response.properties.push({
-        id: property._id as string,
-        location: property.location,
-        price: property.price,
-        imageUrl: property.imageUrl,
-        shortDescription: property.description,
-      });
-    }
 
     // Return the properties as the response
     res.status(200).json(response);

@@ -25,3 +25,9 @@ PropertyRoutes.get(
   verifyAccessToken,
   propertyController.getPropertyDetailsById,
 );
+
+PropertyRoutes.put(
+  "/update-property/:propId",
+  verifyAccessToken,
+  propertyController.updateProperty,
+);

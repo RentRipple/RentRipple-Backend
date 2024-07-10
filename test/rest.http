@@ -49,10 +49,10 @@ Content-Type: application/json
 ###
 POST  http://localhost:8000/api/property/add-property 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAwMjk2NTAsImV4cCI6MTcyMDAzMDI1MCwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.meVLP-TGWaaLDYdhO3rtpNFJegh1AknMeXzY1hZ2BDA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAyOTUzMjcsImV4cCI6MTcyMDI5NTkyNywiYXVkIjoiNjY4OTk3Yzk5NzYwMjdiZWQzMDU3NWJhIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.p0y--xeBcJlBuQAt-gTNcbEEkFy0XZmTdo_pPTcKgq4
 
 {
-    "address_line1": "New Property",
+    "address_line1": "New Property123",
     "city": "London",
     "state": "London",
     "country": "UK",
@@ -151,8 +151,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk3OTMxN
 }
     
 
+# curl -X POST http://localhost:8000/api/property/add-property-images \
+#   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAwMjk2NTAsImV4cCI6MTcyMDAzMDI1MCwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.meVLP-TGWaaLDYdhO3rtpNFJegh1AknMeXzY1hZ2BDA" \
+#   -F "propertyId=667b082d532ae95d53f92844" \
+#   -F "images=@~/Desktop/Screenshot 2024-06-28 at 2.42.14 PM.png"
 
-curl -X POST http://localhost:8000/api/property/add-property-images \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAwMjk2NTAsImV4cCI6MTcyMDAzMDI1MCwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.meVLP-TGWaaLDYdhO3rtpNFJegh1AknMeXzY1hZ2BDA" \
-  -F "propertyId=667b082d532ae95d53f92844" \
-  -F "images=@~/Desktop/Screenshot 2024-06-28 at 2.42.14 PM.png"
+###
+PUT http://localhost:8000/api/property/update-property/666a6f4a1e2270ec9ecf1198
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAyOTUzMjcsImV4cCI6MTcyMDI5NTkyNywiYXVkIjoiNjY4OTk3Yzk5NzYwMjdiZWQzMDU3NWJhIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.p0y--xeBcJlBuQAt-gTNcbEEkFy0XZmTdo_pPTcKgq4
+Content-Type: application/json
+
+{
+    "description": "An updated description for the property.",
+    "price": "2000$"
+}
+
+# curl -X POST http://localhost:8000/api/property/add-property-images \
+#   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAwMjk2NTAsImV4cCI6MTcyMDAzMDI1MCwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.meVLP-TGWaaLDYdhO3rtpNFJegh1AknMeXzY1hZ2BDA" \
+#   -F "propertyId=667b082d532ae95d53f92844" \
+#   -F "images=@~/Desktop/Screenshot 2024-06-28 at 2.42.14 PM.png"

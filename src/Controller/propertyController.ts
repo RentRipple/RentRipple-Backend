@@ -1,13 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import { BadRequest } from "http-errors";
 import { Property } from "../Models/Property.model";
-import { propertySchema } from "../Helpers/validationSchema";
+import {
+  propertySchema,
+  updatePropertySchema,
+} from "../Helpers/validationSchema";
 import { User } from "../Models/User.model";
 import { extractAccessToken } from "../Helpers/extractAccessToken";
 import { getUserIdFromBase64 } from "../Helpers/base64Decoder";
 import { StatusCodes } from "http-status-codes";
 import { NotFound } from "http-errors";
-import * as path from "path";
 
 // Controller function to handle JSON formatted data
 export const addPropertyJson = async (
@@ -62,10 +64,7 @@ export const addPropertyImages = async (
       throw NotFound("Property not found");
     }
 
-    const projectBasePath = path.resolve(__dirname, "../../");
-    const imageUrls: string[] = files.map(
-      (image: any) => `${projectBasePath}/${image.path}`,
-    );
+    const imageUrls: string[] = files.map((image: any) => image.filename);
 
     const updatedProperty = await Property.findByIdAndUpdate(
       propertyId,
@@ -178,6 +177,50 @@ export const getPropertyDetailsById = async (
     res.status(200).json(response);
   } catch (error) {
     // Pass the error to the error handling middleware
+    next(error);
+  }
+};
+
+export const updateProperty = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const { propId } = req.params;
+    const updateData = req.body;
+
+    // Ensure propId and updateData are defined
+    if (!propId || !updateData) {
+      throw new BadRequest("Property ID and update data are required");
+    }
+
+    // Validate the update data
+    const { error, value } = updatePropertySchema.validate(updateData);
+    if (error) {
+      throw new BadRequest(error.message);
+    }
+
+    // Attempt to update the property in the database
+    const updatedProperty = await Property.findByIdAndUpdate(propId, value, {
+      new: true,
+    });
+
+    if (!updatedProperty) {
+      throw new NotFound("Property not found or could not be updated");
+    }
+
+    res.status(StatusCodes.OK).json(updatedProperty);
+  } catch (error: any) {
+    // Enhanced error logging
+    console.error("Update Property Error:", error.message);
+    console.error("Error Stack:", error.stack);
+
+    // Respond with appropriate error status
+    if (error.name === "CastError") {
+      return res.status(400).json({ message: "Invalid property ID" });
+    }
+
     next(error);
   }
 };

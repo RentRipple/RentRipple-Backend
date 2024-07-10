@@ -1,5 +1,6 @@
 import multer, { DiskStorageOptions, FileFilterCallback } from "multer";
 import { Request } from "express";
+import path from "path";
 
 // Set up storage engine
 const storage = multer.diskStorage({
@@ -8,7 +9,8 @@ const storage = multer.diskStorage({
     file: Express.Multer.File,
     cb: (error: Error | null, destination: string) => void,
   ) {
-    cb(null, "uploads/"); // Upload directory
+    const projectBasePath = path.resolve(__dirname, "../../../");
+    cb(null, `${projectBasePath}/RentRipple-Frontend/src/assets/`); // Upload directory
   },
   filename: function (
     req: Request,

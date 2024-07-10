@@ -12,7 +12,7 @@ PropertyRoutes.post(
 );
 
 PropertyRoutes.post(
-  "/add-property-images",
+  "/add-property-images/:propId",
   verifyAccessToken,
   upload.array("images", 10),
   propertyController.addPropertyImages,

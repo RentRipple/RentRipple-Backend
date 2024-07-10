@@ -7,9 +7,9 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-    "firstName": "User1",
+    "firstName": "User11",
     "lastName": "user1",
-    "email": "User1@test.com",
+    "email": "User11@test.com",
     "password": "User1@123",
     "confirmPassword": "User1@123",
     "gender": "Female",
@@ -165,3 +165,8 @@ Content-Type: application/json
     "description": "An updated description for the property.",
     "price": "2000$"
 }
+
+# curl -X POST http://localhost:8000/api/property/add-property-images \
+#   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAwMjk2NTAsImV4cCI6MTcyMDAzMDI1MCwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.meVLP-TGWaaLDYdhO3rtpNFJegh1AknMeXzY1hZ2BDA" \
+#   -F "propertyId=667b082d532ae95d53f92844" \
+#   -F "images=@~/Desktop/Screenshot 2024-06-28 at 2.42.14 PM.png"

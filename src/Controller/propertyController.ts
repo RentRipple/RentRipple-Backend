@@ -57,14 +57,14 @@ export const addPropertyImages = async (
     if (!files) {
       return res.status(400).json({ message: "No files uploaded" });
     }
-    const propertyId = req.body.propertyId;
+    const propertyId = req.params.propId;
 
     const property = await Property.findById(propertyId);
     if (!property) {
       throw NotFound("Property not found");
     }
 
-    const imageUrls: string[] = files.map((image: any) => image.image);
+    const imageUrls: string[] = files.map((image: any) => image.filename);
 
     const updatedProperty = await Property.findByIdAndUpdate(
       propertyId,

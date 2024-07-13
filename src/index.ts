@@ -10,6 +10,7 @@ import { verifyAccessToken } from "./Helpers/generateJWTTokens";
 import { AuthRoutes } from "./Routes/auth.routes";
 import { PropertyRoutes } from "./Routes/property.routes";
 import { UserProfileRoutes } from "./Routes/userProfile.routes";
+import { reviewRoutes } from "./Routes/review.routes";
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ app.get(
 app.use("/api/auth", AuthRoutes);
 app.use("/api/property", PropertyRoutes);
 app.use("/api/user", UserProfileRoutes);
+app.use("/api/reviews", reviewRoutes);
 app.use("/uploads", express.static("uploads")); // Serve static files
 
 // 404 Error Handler

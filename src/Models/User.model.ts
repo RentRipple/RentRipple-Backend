@@ -1,10 +1,17 @@
 import mongoose, { Document, Schema } from "mongoose";
 import { predefinedQuestions } from "../Helpers/constants";
 import bcrypt from "bcryptjs";
+import moment from "moment";
 
 interface ISecurityQuestion {
   question: string;
   answer: string;
+}
+
+interface Location {
+  address_line1: string;
+  city: string;
+  country: string;
 }
 
 interface IUser extends Document {
@@ -21,9 +28,10 @@ interface IUser extends Document {
   createdAt: Date;
   updatedAt: Date;
   address: string;
-  birthDate: Date;
-  rentalProperties: string[];
-  rentalHistory: string[];
+  birthDate: string; // Change to string to store formatted date
+  propertyDetails: mongoose.Schema.Types.ObjectId;
+  rentalHistory: Location[];
+  preferredLocation: Location[];
   checkPassword(password: string): Promise<boolean>;
   checkSecurityAnswer(question: string, answer: string): Promise<boolean>;
 }
@@ -31,6 +39,12 @@ interface IUser extends Document {
 const SecurityQuestionSchema: Schema = new Schema({
   question: { type: String, required: true, enum: predefinedQuestions },
   answer: { type: String, required: true },
+});
+
+const LocationSchema: Schema = new Schema({
+  address_line1: { type: String, required: true, default: "Default Address" },
+  city: { type: String, required: true, default: "Default City" },
+  country: { type: String, required: true, default: "Default Country" },
 });
 
 const UserSchema: Schema<IUser> = new Schema({
@@ -53,9 +67,35 @@ const UserSchema: Schema<IUser> = new Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   address: { type: String, default: "" },
-  birthDate: { type: Date, default: Date.now },
-  rentalProperties: { type: [String], default: [] },
-  rentalHistory: { type: [String], default: [] },
+  birthDate: {
+    type: String,
+    default: () => moment().format("YYYY-MM-DD"),
+    set: (value: Date) => moment(value).format("YYYY-MM-DD"),
+  },
+  propertyDetails: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Property",
+  },
+  rentalHistory: {
+    type: [LocationSchema],
+    default: [
+      {
+        address_line1: "300 Ouellette",
+        city: "Windsor",
+        country: "Canada",
+      },
+    ],
+  },
+  preferredLocation: {
+    type: [LocationSchema],
+    default: [
+      {
+        address_line1: "Sunset Avenue",
+        city: "Windsor",
+        country: "Canada",
+      },
+    ],
+  },
 });
 
 UserSchema.pre<IUser>("save", async function (next) {

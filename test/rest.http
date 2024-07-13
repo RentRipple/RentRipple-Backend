@@ -7,11 +7,11 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-    "firstName": "Khushbu",
-    "lastName": "Modi",
-    "email": "khushu@test.com",
-    "password": "Khushbu@123",
-    "confirmPassword": "Khushbu@123",
+    "firstName": "User11",
+    "lastName": "user1",
+    "email": "User11@test.com",
+    "password": "User1@123",
+    "confirmPassword": "User1@123",
     "gender": "Female",
     "number": "1234567890",
     "securityQuestions": [
@@ -26,8 +26,8 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "khushu@test.com",
-    "password": "Khushbu@123"
+    "email": "user1@test.com",
+    "password": "User1@123"
 }
 
 ### 
@@ -43,16 +43,16 @@ POST http://localhost:8000/api/auth/forgot-password
 Content-Type: application/json
 
 {
-    "email": "khush@test.com"
+    "email": "user1@test.com"
 }
 
 ###
 POST  http://localhost:8000/api/property/add-property 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzg5OTQsImV4cCI6MTcxOTMzOTA1NCwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.vSR0SDFyEbmF1p49QChEIVqNkXcduGJpygamRcQGV_M
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAyOTUzMjcsImV4cCI6MTcyMDI5NTkyNywiYXVkIjoiNjY4OTk3Yzk5NzYwMjdiZWQzMDU3NWJhIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.p0y--xeBcJlBuQAt-gTNcbEEkFy0XZmTdo_pPTcKgq4
 
 {
-    "address_line1": "123 Main St",
+    "address_line1": "New Property123",
     "city": "London",
     "state": "London",
     "country": "UK",
@@ -61,9 +61,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzg5O
     "price": "143$",
     "leaseLength": "12 months",
     "deposit": "200$",
-    "imageUrl": ["https://picsum.photos/200/300",
-        "https://picsum.photos/200/300",
-        "https://picsum.photos/200/300"],
     "location": "London",
     "utilities": {
         "electricity": true,
@@ -92,9 +89,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzg5O
         "wheelchairAccessible": true,
         "petFriendly": true
     },
-    "ownerDetails": "66761320772aaa7a3e0fb30e",
     "extraFeatures": "Close to public transport"
 }
+
 
 ###
 
@@ -102,7 +99,7 @@ POST http://localhost:8000/api/auth/verify-security-answers
 Content-Type: application/json
 
 {
-    "email": "khushu@test.com",
+    "email": "user1@test.com",
     "securityQuestion": "What is your favorite movie?", 
     "securityAnswer": "test" 
 }
@@ -112,8 +109,8 @@ POST http://localhost:8000/api/auth/reset-password
 Content-Type: application/json
 
 {
-    "email": "khushu@test.com",
-    "newPassword": "Khushbu@123"
+    "email": "user1@test.com",
+    "newPassword": "user1@123"
 }
 
 ###
@@ -131,20 +128,21 @@ GET http://localhost:8000/api/property/get-properties
 
 ###
 GET http://localhost:8000/api/property/get-properties/667b082d532ae95d53f92844
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzMzkxMTMsImV4cCI6MTcxOTMzOTE3MywiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ._vY83-SqqeWw7MQOXbUt-zPJwvRsvdbXGZYhcolsc3w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk0NDM5MzcsImV4cCI6MTcxOTQ0NDUzNywiYXVkIjoiNjY3Y2ExY2Y1ZTBmZGVlYzhmOTIyNzY2IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.wMuud380gMHD4sP0luC8umMNdtaERivS9fsuIjLYfuo
+
 
 ###
 GET http://localhost:8000/api/user/viewUserProfile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzNDgyMTYsImV4cCI6MTcxOTM0ODI3NiwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.wZ2Ezo3Vg4UT-sLUnFCTQlCaKH4O3IeIIS9Uoi3L_ho
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk3OTMxNzcsImV4cCI6MTcxOTc5Mzc3NywiYXVkIjoiNjY4MWVhM2Q1MDFiNTY5MzVjMzA2NWU0IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.hla0Vz6krb_LWbcXE8SPXtKpbbFc1B0UJrBPDUV2Gfc
 
 ###
 POST http://localhost:8000/api/user/editUserProfile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzNDgxMDUsImV4cCI6MTcxOTM0ODE2NSwiYXVkIjoiNjY3NjEzMjA3NzJhYWE3YTNlMGZiMzBlIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.8mQg-rNR5K6zVVybq9TJ9ryUJHZANeBLKdCwAwi7H4I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTk3OTMxNzcsImV4cCI6MTcxOTc5Mzc3NywiYXVkIjoiNjY4MWVhM2Q1MDFiNTY5MzVjMzA2NWU0IiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.hla0Vz6krb_LWbcXE8SPXtKpbbFc1B0UJrBPDUV2Gfc
 
 {
-    "firstName": "Khushbu",
-    "lastName": "Modi",
+    "firstName": "NewUser1",
+    "lastName": "NewUser1",
     "gender": "Female",
     "number": "1234567890",
     "address": "123 Main St, London, UK",
@@ -152,3 +150,23 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MTkzNDgxM
     "birthDate": "1995-01-01"
 }
     
+
+# curl -X POST http://localhost:8000/api/property/add-property-images \
+#   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAwMjk2NTAsImV4cCI6MTcyMDAzMDI1MCwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.meVLP-TGWaaLDYdhO3rtpNFJegh1AknMeXzY1hZ2BDA" \
+#   -F "propertyId=667b082d532ae95d53f92844" \
+#   -F "images=@~/Desktop/Screenshot 2024-06-28 at 2.42.14 PM.png"
+
+###
+PUT http://localhost:8000/api/property/update-property/666a6f4a1e2270ec9ecf1198
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAyOTUzMjcsImV4cCI6MTcyMDI5NTkyNywiYXVkIjoiNjY4OTk3Yzk5NzYwMjdiZWQzMDU3NWJhIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.p0y--xeBcJlBuQAt-gTNcbEEkFy0XZmTdo_pPTcKgq4
+Content-Type: application/json
+
+{
+    "description": "An updated description for the property.",
+    "price": "2000$"
+}
+
+# curl -X POST http://localhost:8000/api/property/add-property-images \
+#   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAwMjk2NTAsImV4cCI6MTcyMDAzMDI1MCwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.meVLP-TGWaaLDYdhO3rtpNFJegh1AknMeXzY1hZ2BDA" \
+#   -F "propertyId=667b082d532ae95d53f92844" \
+#   -F "images=@~/Desktop/Screenshot 2024-06-28 at 2.42.14 PM.png"

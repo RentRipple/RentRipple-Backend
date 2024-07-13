@@ -94,6 +94,7 @@ export const loginUser = async (
       refreshToken,
       message: `Welcome back!`,
       name: `${user.firstName} ${user.lastName}`,
+      _id: user.id,
     });
   } catch (error: any) {
     if (error.isJoi) {

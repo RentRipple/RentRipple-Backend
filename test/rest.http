@@ -170,3 +170,26 @@ Content-Type: application/json
 #   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjAwMjk2NTAsImV4cCI6MTcyMDAzMDI1MCwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.meVLP-TGWaaLDYdhO3rtpNFJegh1AknMeXzY1hZ2BDA" \
 #   -F "propertyId=667b082d532ae95d53f92844" \
 #   -F "images=@~/Desktop/Screenshot 2024-06-28 at 2.42.14 PM.png"
+
+###
+POST http://localhost:8000/api/reviews/add-review
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjA4ODM1OTEsImV4cCI6MTcyMDg4OTU5MSwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.uDile7MD6pTzTaGnPWRtAHdRM3FWVYhH_Z-rZhhHkbI
+
+{
+    "reviewee_property": "6679ac94a2c798d13c8ee077",
+    "rating": 4,
+    "review": "A great place to stay!"
+}
+
+### 
+GET http://localhost:8000/api/reviews/get-reviews/6679ac94a2c798d13c8ee077
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjA4ODM1OTEsImV4cCI6MTcyMDg4OTU5MSwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.uDile7MD6pTzTaGnPWRtAHdRM3FWVYhH_Z-rZhhHkbI
+
+
+###
+GET  http://localhost:8000/api/reviews/user-reviews/66847c1337a54531d5fad963
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjA4ODM1OTEsImV4cCI6MTcyMDg4OTU5MSwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.uDile7MD6pTzTaGnPWRtAHdRM3FWVYhH_Z-rZhhHkbI
+
+###
+GET http://localhost:8000/api/reviews/get-all-reviews

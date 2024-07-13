@@ -4,6 +4,8 @@ import { Property } from "../Models/Property.model";
 import { User } from "../Models/User.model";
 
 import { StatusCodes } from "http-status-codes";
+import { extractAccessToken } from "../Helpers/extractAccessToken";
+import { getUserIdFromBase64 } from "../Helpers/base64Decoder";
 
 export const addReview = async (
   req: Request,
@@ -11,7 +13,14 @@ export const addReview = async (
   next: NextFunction,
 ) => {
   try {
-    const { reviewer_user, reviewee_property, rating, review } = req.body;
+    const accessToken = extractAccessToken(req);
+    const reviewer_user = await getUserIdFromBase64(accessToken);
+    const userProfile = await User.findById(reviewer_user);
+    if (!userProfile) {
+      throw new Error("User not found");
+    }
+
+    const { reviewee_property, rating, review } = req.body;
     const reviewData = {
       reviewer_user,
       reviewee_property,
@@ -52,8 +61,9 @@ export const getReviewsForSpecificProperty = async (
   next: NextFunction,
 ) => {
   try {
-    const { propertyId } = req.params;
-    const reviews = await Review.find({ reviewee_property: propertyId });
+    const { propId } = req.params;
+    console.log(req.params);
+    const reviews = await Review.find({ reviewee_property: propId });
     const response = {
       status: StatusCodes.OK,
       reviews,
@@ -94,29 +104,6 @@ export const getAllReviews = async (
       reviews,
     };
     res.status(StatusCodes.OK).json(response);
-  } catch (error: any) {
-    next(error);
-  }
-};
-
-export const deleteReview = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  try {
-    const { reviewId } = req.params;
-    const review = await Review.findByIdAndDelete(reviewId);
-    if (!review) {
-      return res.status(StatusCodes.NOT_FOUND).json({
-        status: StatusCodes.NOT_FOUND,
-        message: "Review not found",
-      });
-    }
-    res.status(StatusCodes.OK).json({
-      status: StatusCodes.OK,
-      message: "Review deleted successfully",
-    });
   } catch (error: any) {
     next(error);
   }

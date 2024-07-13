@@ -9,7 +9,7 @@ export const signedAccessToken = async (userId: string) => {
     const payload = {};
     console.log(process.env.ACCESS_TOKEN_SECRET!);
     const options = {
-      expiresIn: "10s",
+      expiresIn: "100m",
       issuer: "rentripple.com",
       audience: userId,
     };

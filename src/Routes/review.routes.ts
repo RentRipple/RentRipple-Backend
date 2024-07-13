@@ -11,3 +11,11 @@ reviewRoutes.get(
   verifyAccessToken,
   reviewController.getReviewsForSpecificProperty,
 );
+
+reviewRoutes.get(
+  "/user-reviews/:userId",
+  verifyAccessToken,
+  reviewController.getReviewsForSpecificUser,
+);
+
+reviewRoutes.get("/get-all-reviews", reviewController.getAllReviews);

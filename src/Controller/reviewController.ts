@@ -1,11 +1,18 @@
 import { Request, Response, NextFunction } from "express";
-import { Review } from "../Models/Review.model";
+import { Review, IReview } from "../Models/Review.model";
 import { Property } from "../Models/Property.model";
 import { User } from "../Models/User.model";
 
 import { StatusCodes } from "http-status-codes";
 import { extractAccessToken } from "../Helpers/extractAccessToken";
 import { getUserIdFromBase64 } from "../Helpers/base64Decoder";
+
+interface ReviewWithProperty extends IReview {
+  property_address_line1?: string;
+  property_state?: string;
+  property_country?: string;
+  property_imageUrl?: string[];
+}
 
 export const addReview = async (
   req: Request,
@@ -81,11 +88,32 @@ export const getReviewsForSpecificUser = async (
 ) => {
   try {
     const { userId } = req.params;
-    const reviews = await Review.find({ reviewer_user: userId });
+
+    const reviews = (await Review.find({
+      reviewer_user: userId,
+    })) as ReviewWithProperty[];
+
+    const updatedReviews = await Promise.all(
+      reviews.map(async (review) => {
+        const property = await Property.findById(review.reviewee_property);
+        if (property) {
+          return {
+            ...review.toObject(),
+            property_address_line1: property.address_line1,
+            property_state: property.state,
+            property_country: property.country,
+            property_imageUrl: property.imageUrl, // assuming property.imageUrl is an array of strings
+          };
+        }
+        return review.toObject();
+      }),
+    );
+
     const response = {
       status: StatusCodes.OK,
-      reviews,
+      reviews: updatedReviews,
     };
+
     res.status(StatusCodes.OK).json(response);
   } catch (error: any) {
     next(error);

@@ -27,6 +27,7 @@ interface IUser extends Document {
   isDeleted: boolean;
   createdAt: Date;
   updatedAt: Date;
+  online?: boolean;
   address: string;
   birthDate: string; // Change to string to store formatted date
   propertyDetails: mongoose.Schema.Types.ObjectId;

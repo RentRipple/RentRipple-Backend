@@ -11,10 +11,16 @@ import { AuthRoutes } from "./Routes/auth.routes";
 import { PropertyRoutes } from "./Routes/property.routes";
 import { UserProfileRoutes } from "./Routes/userProfile.routes";
 import { reviewRoutes } from "./Routes/review.routes";
+import { ChatRoutes } from "./Routes/chat.routes";
+import { setupSocketIO } from "./Helpers/Socket";
+import http from "http";
+import { Server } from "socket.io";
 
 dotenv.config();
 
 const app: Express = express();
+const server = http.createServer(app); // Create an HTTP server
+const io = new Server(server); // Pass the server to Socket.IO
 
 // Middleware setup
 app.use(express.json());
@@ -40,6 +46,7 @@ app.use("/api/auth", AuthRoutes);
 app.use("/api/property", PropertyRoutes);
 app.use("/api/user", UserProfileRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/chat", ChatRoutes);
 app.use("/uploads", express.static("uploads")); // Serve static files
 
 // 404 Error Handler
@@ -49,6 +56,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // Centralized Error Handler
 app.use(errorHandler);
+
+// Initialize Socket.IO
+setupSocketIO(io);
 
 // Start the server
 const PORT = process.env.PORT || 3000;

@@ -1,10 +1,18 @@
 import { Request, Response, NextFunction } from "express";
-import { User } from "../Models/User.model";
+import { User, IUser } from "../Models/User.model";
 import { NotFound } from "http-errors";
 import { StatusCodes } from "http-status-codes";
 import { getUserIdFromBase64 } from "../Helpers/base64Decoder";
 import { Property } from "../Models/Property.model";
 import { extractAccessToken } from "../Helpers/extractAccessToken";
+import mongoose from "mongoose";
+
+interface CustomRequest extends Request {
+  user?: {
+    _id: mongoose.Schema.Types.ObjectId;
+    // other user fields if needed
+  };
+}
 
 export const viewUserProfile = async (
   req: Request,
@@ -113,5 +121,29 @@ export const editUserProfile = async (
     });
   } catch (error: any) {
     next(error);
+  }
+};
+
+export const getUsersForSidebar = async (
+  req: CustomRequest,
+  res: Response,
+): Promise<void> => {
+  try {
+    const accessToken = extractAccessToken(req);
+    const loggedInUserId = await getUserIdFromBase64(accessToken);
+
+    if (!loggedInUserId) {
+      res.status(401).json({ error: "User not authenticated" });
+      return;
+    }
+
+    const filteredUsers = (await User.find({
+      _id: { $ne: loggedInUserId },
+    }).select("-password")) as IUser[];
+
+    res.status(200).json(filteredUsers);
+  } catch (error) {
+    console.error("Error in getUsersForSidebar: ", (error as Error).message);
+    res.status(500).json({ error: "Internal server error" });
   }
 };

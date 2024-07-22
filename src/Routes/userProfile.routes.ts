@@ -15,3 +15,9 @@ UserProfileRoutes.post(
   verifyAccessToken,
   userProfileController.editUserProfile,
 );
+
+UserProfileRoutes.get(
+  "/viewAllUsers",
+  verifyAccessToken,
+  userProfileController.getUsersForSidebar,
+);

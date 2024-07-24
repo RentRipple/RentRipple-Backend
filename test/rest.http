@@ -193,3 +193,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjA4ODM1O
 
 ###
 GET http://localhost:8000/api/reviews/get-all-reviews
+
+
+###
+GET http://localhost:8000/api/user/viewAllUsers
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MjE2MTI2NDgsImV4cCI6MTcyMTYxMzI0OCwiYXVkIjoiNjY4NDdjMTMzN2E1NDUzMWQ1ZmFkOTYzIiwiaXNzIjoicmVudHJpcHBsZS5jb20ifQ.cRXy_Gl_spN8CK7B4qhfST4ueKG9ivHB5lgYsS_4jTQ

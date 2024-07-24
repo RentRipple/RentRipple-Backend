@@ -52,6 +52,8 @@ export const viewUserProfile = async (
         state: property.state,
         country: property.country,
         postal_code: property.postal_code,
+        price: property.price,
+        imageUrl: property.imageUrl,
       })),
     };
 
